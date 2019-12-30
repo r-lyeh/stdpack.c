@@ -8,13 +8,13 @@ By using these compressors you are not required to credit original authors neith
 
 # About compression (tips)
 
-1. If possible feed always customized compressed data to dedicated hardware. Ie, feed BCn,ETCn,PVRTn... textures to the GPUs that support them, also feed AAC,MPn,OGG... bitstreams to the sound decoders that directly support them, and so on. No general compression algorithm can beat specialized hardware. Always know your data and evolve your tools around it: as general rule, compression should be always the last resort.
+1. If possible feed always customized compressed data to dedicated hardware. Ie, feed BCn,ETCn,PVRTn... textures to the GPUs that support them, also feed AAC,MPn,OGG... bitstreams to the sound decoders that directly support them, and so on. No general compression algorithm can beat specific compression for specialized hardware. Always know your data and evolve your tools around it: as general rule, general compression should be always the last resort.
 
 1. When picking compressors, ensure that memory consumption of your picked algorithm matches your target platform budget. For example, BALZ or LZMA with large dictionaries may take dozens or hundreds of MiBs while decompressing, so ensure they will run in a desktop and not in a gameboy in this case.
 
-1. Once algorithms are chosen, evaluate both de/compression times. Think about main usage for each case. Servers and backend services could need the fastest compressor (to store data as fast as possible), but game assets could use the fastest decompression (to minimize loading times), and peer2peer data exchange could use both the fastest de/compressor (to handle traffic quickly), and offline or installation data could definitely need the heaviest compressor (to minimize distribution costs), and so on.
+1. Once algorithms are chosen, evaluate both de/compression times. Think about main usage for each case. Servers and backend services could use the fastest compressor (to store data as fast as possible), game assets could use the fastest decompression (to minimize loading times), peer2peer data exchange could use both fastest de/compressors (to handle traffic quickly), and offline or installation data could definitely use the heaviest compressor (to minimize distribution costs), and so on.
 
-1. Finally, consider transcoding to faster codecs if you plan to reload data over and over. Ie, during your game installation you may transcode offline LZMA streams and save them as LZ4X for faster runtime loading.
+1. Finally, consider transcoding to faster codecs if you plan to reload same data over and over. Ie, during your game installation you may transcode offline LZMA streams and save them as LZ4X for faster runtime loading.
 
 1. TL;DR? Personal preferences? balz:1 for offline tasks, ulz:0 or lz4x:1 for runtime tasks, zlib:3 elsewhere.
 

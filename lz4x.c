@@ -4,6 +4,7 @@
 
 unsigned lz4x_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags); //[1(fastest)..(6)..15(uber)]
 unsigned lz4x_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned lz4x_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef LZ4X_C
@@ -470,6 +471,9 @@ unsigned lz4x_encode(const void *in, unsigned inlen, void *out, unsigned outlen,
 }
 unsigned lz4x_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
   return (unsigned)lz4x_decompress((const uint8_t*)in, (size_t)inlen, (uint8_t*)out, (size_t)outlen);
+}
+unsigned lz4x_bounds(unsigned inlen, unsigned flags) {
+    return (unsigned)(inlen + (inlen/255) + 16);
 }
 
 #endif // LZ4X_C

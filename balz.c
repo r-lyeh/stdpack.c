@@ -3,6 +3,8 @@
 
 unsigned balz_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags /*[0..1]*/);
 unsigned balz_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned balz_bounds(unsigned inlen, unsigned flags);
+
 
 #ifdef BALZ_C
 #pragma once
@@ -460,6 +462,9 @@ unsigned balz_encode(const void *in, unsigned inlen, void *out, unsigned outlen,
 }
 unsigned balz_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
 	return (unsigned)balz_decompress((const uint8_t *)in, inlen, (uint8_t*)out, outlen);
+}
+unsigned balz_bounds(unsigned inlen, unsigned flags) {
+    return (unsigned)(inlen * 1.1) + 16; // @todo: check src
 }
 
 #endif // BALZ_C

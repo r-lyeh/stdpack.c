@@ -5,6 +5,7 @@
 
 unsigned lzma_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags); // [0..(7)..9]
 unsigned lzma_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned lzma_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef LZMA_C
@@ -3607,6 +3608,10 @@ unsigned lzma_decode(const void *in_, unsigned inlen, void *out, unsigned outlen
     LzmaDec_Free(&dec);
 
     return (unsigned)(ok ? destLen : 0);
+}
+
+unsigned lzma_bounds(unsigned inlen, unsigned flags) { 
+    return (unsigned)(inlen * 1.1) + 16; // @todo: check src
 }
 
 #endif // LZMA_C

@@ -10,6 +10,7 @@
 
 unsigned lzrw3a_encode(const void* in, unsigned inlen, void* out, unsigned outlen, unsigned flags);
 unsigned lzrw3a_decode(const void* in, unsigned inlen, void* out, unsigned outlen);
+unsigned lzrw3a_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef LZRW3A_C
@@ -290,13 +291,16 @@ unsigned lzrw3a_encode(const void* in, unsigned inlen, void* out, unsigned outle
 	lzrw3a_compress(workmem, (void*)in, inlen, out, &outlen_);
 	return (unsigned)outlen_;
 }
-
 unsigned lzrw3a_decode(const void* in, unsigned inlen, void* out, unsigned outlen) {
 	char workmem[MEM_REQ];
 	size_t outlen_ = outlen;
 	lzrw3a_decompress(workmem, (void*)in, inlen, out, &outlen_);
 	return (unsigned)outlen_;
 }
+unsigned lzrw3a_bounds(unsigned inlen, unsigned flags) { 
+    return (unsigned)(inlen * 1.1) + 16; // @todo: check src
+}
+
 #endif // LZRW3A_C
 
 #ifdef LZRW3A_DEMO

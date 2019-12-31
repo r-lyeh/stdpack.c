@@ -4,6 +4,7 @@
 
 unsigned deflate_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags); // [0..(6)..9][10 (uber)]
 unsigned deflate_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned deflate_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef DEFLATE_C
@@ -1576,7 +1577,6 @@ unsigned deflate_decode(const void *in, unsigned inlen_, void *out, unsigned out
   status = tinfl_decompress(&decomp, (const uint8_t*)in, &inlen, (uint8_t*)out, (uint8_t*)out, &outlen, TINFL_FLAG_USING_NON_WRAPPING_OUTPUT_BUF);
   return (unsigned)((status != TINFL_STATUS_DONE) ? 0 : outlen);
 }
-
 unsigned deflate_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags /*[0..9|10]*/) {
   size_t bytes = 0;
   if(in && inlen && out && outlen) {
@@ -1594,6 +1594,9 @@ unsigned deflate_encode(const void *in, unsigned inlen, void *out, unsigned outl
     MZ_REALLOC(pComp, 0);
   }
   return (unsigned)bytes;
+}
+unsigned deflate_bounds(unsigned inlen, unsigned flags) {
+    return (unsigned)MZ_MAX(128 + (inlen * 110) / 100, 128 + inlen + ((inlen / (31 * 1024)) + 1) * 5);
 }
 
 #endif // DEFLATE_C

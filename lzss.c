@@ -1,17 +1,14 @@
 /**************************************************************
     LZSS.C -- A Data Compression Program
-    (tab = 4 spaces)
 ***************************************************************
-    4/6/1989 Haruhiko Okumura
+     4/ 6/1989   Haruhiko Okumura
+    30/12/2019   @r-lyeh
     Use, distribute, and modify this program freely.
-    Please send me your improved versions.
-        PC-VAN        SCIENCE
-        NIFTY-Serve    PAF01022
-        CompuServe    74050,1022
 **************************************************************/
 
 unsigned lzss_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags);
 unsigned lzss_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned lzss_bounds(unsigned bytes, unsigned flags);
 
 
 #ifdef LZSS_C
@@ -237,6 +234,9 @@ unsigned lzss_encode(const void *in, unsigned inlen, void *out, unsigned outlen,
 unsigned lzss_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
     size_t rc = LzssDecode((const unsigned char*)in, (size_t)inlen, (char*)out, (size_t)outlen);
     return (unsigned)rc;
+}
+unsigned lzss_bounds(unsigned bytes, unsigned flags) { 
+    return (unsigned)(bytes * 1.5) + 16; // @todo: check src
 }
 
 #endif // LZSS_C

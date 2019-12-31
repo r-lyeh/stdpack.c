@@ -6,6 +6,7 @@
 
 unsigned ppp_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags);
 unsigned ppp_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned ppp_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef PPP_C
@@ -93,9 +94,11 @@ static int ppp_decompress(const unsigned char *source, int slen, unsigned char *
 unsigned ppp_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags) {
     return (unsigned)ppp_compress((const unsigned char *)in, (int)inlen, (unsigned char *)out, (int)outlen);
 }
-
 unsigned ppp_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
     return (unsigned)ppp_decompress((const unsigned char *)in, (int)inlen, (unsigned char *)out, (int)outlen);
+}
+unsigned ppp_bounds(unsigned inlen, unsigned flags) { 
+    return inlen/8*9+9;
 }
 
 #endif // PPP_C

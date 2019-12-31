@@ -4,6 +4,7 @@
 
 unsigned crush_encode(const void* in, unsigned inlen, void* out, unsigned outlen, unsigned flags); // [0..(4)..10]
 unsigned crush_decode(const void* in, unsigned inlen, void* out, unsigned outlen);
+unsigned crush_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef CRUSH_C
@@ -352,6 +353,9 @@ unsigned crush_encode(const void* in, unsigned inlen, void* out, unsigned outlen
 }
 unsigned crush_decode(const void* in, unsigned inlen, void* out, unsigned outlen) {
     return crush_decompress((const uint8_t*)in, (size_t)inlen, (uint8_t*)out, (size_t)outlen);
+}
+unsigned crush_bounds(unsigned inlen, unsigned flags) {
+    return (unsigned)(inlen * 1.1) + 16; // @todo: check src
 }
 
 #endif // CRUSH_C

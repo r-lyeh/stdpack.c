@@ -35,6 +35,7 @@ freely, subject to the following restrictions:
 
 unsigned lzp1_encode(const void* in, unsigned inlen, void* out, unsigned outlen, unsigned flags);
 unsigned lzp1_decode(const void* in, unsigned inlen, void* out, unsigned outlen);
+unsigned lzp1_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef LZP1_C
@@ -316,6 +317,9 @@ unsigned lzp1_encode(const void* in, unsigned inlen, void* out, unsigned outlen,
 }
 unsigned lzp1_decode(const void* in, unsigned inlen, void* out, unsigned outlen) {
     return (unsigned)lzp1_decode_((const uint8_t*)in, (int)inlen, (uint8_t*)out, (int)outlen);
+}
+unsigned lzp1_bounds(unsigned inlen, unsigned flags) { 
+    return (unsigned)LZP1_BOUNDS(inlen);
 }
 
 #endif // LZP1_C

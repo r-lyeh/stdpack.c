@@ -4,6 +4,7 @@
 
 unsigned ulz_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags); // [0..(6)..9]
 unsigned ulz_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
+unsigned ulz_bounds(unsigned inlen, unsigned flags);
 
 
 #ifdef ULZ_C
@@ -366,6 +367,9 @@ unsigned ulz_encode(const void *in, unsigned inlen, void *out, unsigned outlen, 
 }
 unsigned ulz_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
     return (unsigned)UlzDecompress((uint8_t *)in, (int)inlen, (uint8_t *)out, (int)outlen);
+}
+unsigned ulz_bounds(unsigned inlen, unsigned flags) { 
+    return inlen + inlen/255 + 16;
 }
 
 #endif // ULZ_C

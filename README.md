@@ -66,3 +66,13 @@ Y 100000000 ->    26702913 lzma 26.70% c:86.37s d:1.577s \prj\enwik8
 - Optimize BALZ. Could those in-mem bufferings be skipped?
 - Consider ZPAQ (large C++), BCM (divsufsort is MIT licensed) and yalz77 too. LZJB maybe?
 - Bugfixes and cleaning up.
+
+# Links
+- Ilya Muravyov: balz, crush, ulz, lz4x - https://github.com/encode84
+- Rich Geldreich: miniz - https://github.com/richgel999
+- Igor Pavlov: lzma - https://www.7-zip.org/
+- Charles Bloom: lzp1 - https://www.cbloom.com/src/index_lz.html
+- Ross Williams: lzrw3a - http://ross.net/compression/lzrw3a.html
+- Haruhiko Okumura: lzss - https://oku.edu.mie-u.ac.jp/~okumura/compression/
+- Dave Rand: ppp - https://tools.ietf.org/html/rfc1978
+

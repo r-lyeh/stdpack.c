@@ -10,7 +10,7 @@ By using these compressors you are not required to credit original authors neith
 
 1. When possible, feed each dedicated hardware its own compressed data format. Ie, feed BCn,ETCn,PVRTn... textures to the GPUs that support them, also feed AAC,MPn,OGG... bitstreams to the sound decoders that directly support them, and so on. No general compression algorithm can beat specific compression for specialized hardware. Always know your data and evolve your tools around it: as general rule, general compression should be always the last resort.
 
-1. When picking compressors, ensure that memory consumption of your picked algorithm matches your target platform budget. For example, BALZ or LZMA with large dictionaries may take dozens or hundreds of MiBs while decompressing, so ensure they will run in a desktop and not in a gameboy in this case.
+1. When picking compressors, know your algorithms and your platform budgets. Ensure that memory consumption of your picked algorithm matches your target platform budget. For example, BALZ or LZMA with large dictionaries will take dozens or hundreds of MiBs while decompressing, so ensure they will be used in a desktop computer and not in a 512M mobile.
 
 1. Once algorithms are chosen, evaluate both de/compression times. Think about main usage for each case. Servers and backend services could use the fastest compressor (to store data as fast as possible), game assets could use the fastest decompression (to minimize loading times), peer2peer data exchange could use both fastest de/compressors (to handle traffic quickly), and offline or installation data could definitely use the heaviest compressor (to minimize distribution costs), and so on.
 

@@ -21,14 +21,15 @@ unsigned ppp_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
  * at the expense of time.
  */
 
-// original
+// original. enwik8: 61.730.508 c:0.729s d:0.453s
 //#define PPP_HASH_TYPE unsigned short
 //#define PPP_HASH_TABLE (65536)
-//#define PPP_HASH(x) Hash = (Hash << 4) ^ (x) // 61.730.508 0.729s 0.453s
+//#define PPP_HASH(x) Hash = (Hash << 4) ^ (x) //
 
+// improved. enwik8: 58.769.363 c:0.772s d:0.490s 
 #define PPP_HASH_TYPE unsigned int
 #define PPP_HASH_TABLE (1<<18) // 256K
-#define PPP_HASH(x) Hash = ((Hash * 160) ^ (x)) & (PPP_HASH_TABLE-1) // 58.769.363 0.772s 0.490s // see: https://encode.su/threads/1025-PREDICTOR-algorithm
+#define PPP_HASH(x) Hash = ((Hash * 160) ^ (x)) & (PPP_HASH_TABLE-1) // see: https://encode.su/threads/1025-PREDICTOR-algorithm
 
 static int ppp_compress(const unsigned char *source, int slen, unsigned char *dest, int dlen) {
     PPP_HASH_TYPE Hash = 0;

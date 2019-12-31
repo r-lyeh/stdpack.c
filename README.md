@@ -2,13 +2,13 @@
 
 This is a collection of public domain compressors from different authors. Sources have been minimally refurbished where due and/or backported from C++ to plain C. Most modifications were adding a standarized api convention and converting into single-header, converting from file to in-memory based, also added re-entrancy and thread-safety fixes, portability improvements, etc.
 
-At this point, you do not want likely to use these compressors in your serious products. First-citizen compressors like Snappy, LZ4/LZ4HC, ZSTD, ZLIB, BZIP2 or LZMA SDK, are much more mature, more portable, extremely faster and way more battle-tested codebases than the ones found here. Anyways, if your main motivations are (like mine) having more liberal licensing terms, smaller codebases, ease of free standalone functions, or love header-only files or think they produce less hassles in general, etc. then you are welcome here.
+At this point, you do not likely want to use these compressors in your serious products. First-citizen compressors like Snappy, LZ4/LZ4HC, ZSTD, ZLIB, BZIP2 or LZMA SDK, are much more mature, more portable, extremely faster and way more battle-tested codebases than the ones found here. Anyways, if your main motivations are (like mine) having more liberal licensing terms, smaller codebases, ease of free standalone functions, or love header-only files or think they produce less hassles in general, etc. then you are welcome here.
 
 By using these compressors you are not required to credit original authors neither to display licensing terms in your end-products, but I encourage you to acknowledge the original authors if possible, as they crafted with <3 these little gems over the years.
 
 # About compression (tips)
 
-1. If possible feed always customized compressed data to dedicated hardware. Ie, feed BCn,ETCn,PVRTn... textures to the GPUs that support them, also feed AAC,MPn,OGG... bitstreams to the sound decoders that directly support them, and so on. No general compression algorithm can beat specific compression for specialized hardware. Always know your data and evolve your tools around it: as general rule, general compression should be always the last resort.
+1. When possible, feed each dedicated hardware its own compressed data format. Ie, feed BCn,ETCn,PVRTn... textures to the GPUs that support them, also feed AAC,MPn,OGG... bitstreams to the sound decoders that directly support them, and so on. No general compression algorithm can beat specific compression for specialized hardware. Always know your data and evolve your tools around it: as general rule, general compression should be always the last resort.
 
 1. When picking compressors, ensure that memory consumption of your picked algorithm matches your target platform budget. For example, BALZ or LZMA with large dictionaries may take dozens or hundreds of MiBs while decompressing, so ensure they will run in a desktop and not in a gameboy in this case.
 

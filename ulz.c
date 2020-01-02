@@ -29,10 +29,10 @@ enum {
     ULZ_NIL=-1,
 };
 
-typedef struct ULZ {
+typedef struct ULZ_WORKMEM {
     int HashTable[ULZ_HASH_SIZE];
     int Prev[ULZ_WINDOW_SIZE];
-} ULZ;
+} ULZ_WORKMEM;
 
 // Utils
 
@@ -86,7 +86,7 @@ static inline uint32_t DecodeMod(const uint8_t** p) {
 // LZ77
 
 static int UlzCompressFast(const uint8_t* in, int inlen, uint8_t* out, int outlen) {
-    ULZ *u =(ULZ*)ULZ_REALLOC(0, sizeof(ULZ));
+    ULZ_WORKMEM *u =(ULZ_WORKMEM*)ULZ_REALLOC(0, sizeof(ULZ_WORKMEM));
 
     for (int i=0; i<ULZ_HASH_SIZE; ++i)
         u->HashTable[i]=ULZ_NIL;
@@ -178,7 +178,7 @@ static int UlzCompress(const uint8_t* in, int inlen, uint8_t* out, int outlen, i
         return 0;
     const int max_chain=(level<9)?1<<level:1<<13;
 
-    ULZ *u = (ULZ*)ULZ_REALLOC(0, sizeof(ULZ));
+    ULZ_WORKMEM *u = (ULZ_WORKMEM*)ULZ_REALLOC(0, sizeof(ULZ_WORKMEM));
     for (int i=0; i<ULZ_HASH_SIZE; ++i)
         u->HashTable[i]=ULZ_NIL;
 

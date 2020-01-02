@@ -128,7 +128,7 @@ static int lzp1_encode_(const uint8_t *raw,int rawLen,uint8_t * comp,int compLen
                                                             ENC_SHIFT_CONTROL(1);
 
                                                             ml = 0;
-                                                            while( *mp == *rp ) {
+                                                            while(rp < endrp  && *mp == *rp ) {
                                                                 mp++; rp++; ml++;
                                                             }
                                                             while( ml >= 0xFF ) {

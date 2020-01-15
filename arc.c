@@ -40,6 +40,11 @@ enum {
 };
 
 // single de/encoder
+unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor);
+unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor);
+unsigned mem_bounds(unsigned inlen, unsigned compressor);
+
+// single de/encoder
 unsigned file_encode(FILE* in, FILE* out, unsigned compressor);
 unsigned file_decode(FILE* in, FILE* out);
 
@@ -83,7 +88,7 @@ unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile);
 #include <stdint.h>
 #include <time.h>
 
-struct compressor {
+static struct compressor {
     // id of compressor
     unsigned enumerator;
     // name of compressor
@@ -108,8 +113,17 @@ struct compressor {
     { LZSS, 's', "lzss", "lzss",    lzss_bounds, lzss_encode, lzss_decode },
 };
 
-// ---
+unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {
+    return list[(compressor >> 4) % NUM_COMPRESSORS].encode(in, inlen, out, outlen, compressor & 0x0F);
+}
+unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {
+    return list[(compressor >> 4) % NUM_COMPRESSORS].decode(in, inlen, out, outlen);
+}
+unsigned mem_bounds(unsigned inlen, unsigned compressor) {
+    return list[(compressor >> 4) % NUM_COMPRESSORS].bounds(inlen, compressor & 0x0F);
+}
 
+// ---
 // file options
 
 static uint8_t STDARC_FILE_BLOCK_SIZE =  23; // 2<<(BS+12) = { 8K..256M }
@@ -119,9 +133,6 @@ static uint8_t STDARC_FILE_BLOCK_EXCESS = 0; // 16<<BE = 16, 256, 4K, 64K (16 fo
 // xx           : reserved (default = 0x11)
 //    yy        : block excess [00..03] = 16<<X     = { 16, 256, 4K, 64K }
 //       zzzz   : block size   [00..15] = 2<<(X+13) = { 8K..256M }
-
-
-// return 0 if error
 
 unsigned file_encode_multi(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned *clist) { // multi encoder
 #if 0

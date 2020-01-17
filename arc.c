@@ -117,6 +117,12 @@ static struct compressor {
     { BCM,  'B', "bcm",  "bcm",     bcm_bounds, bcm_encode, bcm_decode },
 };
 
+char *arc_nameof(unsigned flags) {
+    static __thread char buf[16];
+    snprintf(buf, 16, "%4s.%c", list[(flags>>4)&0x0F].name4, "0123456789ABCDEF"[flags&0xF]);
+    return buf;
+}
+
 unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {
     return list[(compressor >> 4) % NUM_COMPRESSORS].encode(in, inlen, out, outlen, compressor & 0x0F);
 }
@@ -252,7 +258,7 @@ unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile) { // multi decode
     double dectime = 0;
     if(logfile) tm = clock();
     {
-        for(uint32_t inlen=0;fread(&inlen, 1, sizeof(inlen), in)>0;) {
+        for(uint32_t inlen=0, loop=0;fread(&inlen, 1, sizeof(inlen), in)>0;++loop) {
             if (inlen>(BLOCK_SIZE+EXCESS)) goto fail;
 
             uint8_t packer;
@@ -278,7 +284,7 @@ unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile) { // multi decode
             }
 
             total += outlen;
-            if( logfile ) fprintf(logfile, "%c\b", "\\|/-"[total&3] );
+            if( logfile ) fprintf(logfile, "%c\b", "\\|/-"[loop&3] );
         }
     }
     if( logfile ) dectime = (clock() - tm) / (double)CLOCKS_PER_SEC;

@@ -36,7 +36,8 @@ enum {
     BALZ = (8<<4),
     LZW3 = (9<<4),
     LZSS = (10<<4),
-    NUM_COMPRESSORS = 12
+    BCM  = (11<<4),
+    NUM_COMPRESSORS = 13
 };
 
 // single de/encoder
@@ -79,6 +80,8 @@ unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile);
 #include "lzrw3a.c"
 #define LZSS_C
 #include "lzss.c"
+#define BCM_C
+#include "bcm.c"
 
 #include <stdio.h>
 #ifdef _MSC_VER
@@ -109,8 +112,9 @@ static struct compressor {
     { LZP1, '1', "lzp1", "lzp1",    lzp1_bounds, lzp1_encode, lzp1_decode },
     { LZMA, 'm', "lzma", "lzma",    lzma_bounds, lzma_encode, lzma_decode },
     { BALZ, 'b', "balz", "balz",    balz_bounds, balz_encode, balz_decode },
-    { LZW3, 'w', "lzw3", "lzrw3-a", lzrw3a_bounds, lzrw3a_encode, lzrw3a_decode },
+    { LZW3, 'w', "lzw3", "lzrw3a",  lzrw3a_bounds, lzrw3a_encode, lzrw3a_decode },
     { LZSS, 's', "lzss", "lzss",    lzss_bounds, lzss_encode, lzss_decode },
+    { BCM,  'B', "bcm",  "bcm",     bcm_bounds, bcm_encode, bcm_decode },
 };
 
 unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {

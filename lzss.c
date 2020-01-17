@@ -226,6 +226,10 @@ size_t LzssDecode(const unsigned char* istr, size_t ilen, char *ostr, size_t ole
 
 #undef _get
 #undef _put
+#undef N
+#undef F
+#undef THRESHOLD
+#undef NIL
 
 unsigned lzss_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags) {
     size_t rc = LzssEncode((const char*)in, (size_t)inlen, (char*)out, (size_t)outlen);

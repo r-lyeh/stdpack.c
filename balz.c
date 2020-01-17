@@ -17,7 +17,6 @@ unsigned balz_bounds(unsigned inlen, unsigned flags);
 typedef struct mfile {
 	uint8_t *begin, *seek, *end;
 } mfile;
-
 int minit(mfile *f, const void *ptr, int len) {
 	f->begin = f->seek = f->end = (uint8_t*)ptr;
 	f->end += len;
@@ -33,11 +32,16 @@ int mwrite(mfile *m, const void *buf, int len) {
 	memcpy(m->seek,buf,len); m->seek += len;
 	return len;
 }
+int mtell(mfile *m) {
+	return m->seek - m->begin;
+}
 int mavail(mfile *m) {
 	return m->end - m->seek;
 }
-
-int mputc(mfile *m, int i) { uint8_t ch = i; return mwrite(m, &ch, 1); }
+int mputc(mfile *m, int i) {
+	uint8_t ch = i;
+	return mwrite(m, &ch, 1);
+}
 int mgetc(mfile *m) { 
 	if( mavail(m) <= 0 ) return -1;
 	uint8_t ch; mread(m, &ch, 1); return ch;
@@ -464,7 +468,7 @@ unsigned balz_decode(const void *in, unsigned inlen, void *out, unsigned outlen)
 	return (unsigned)balz_decompress((const uint8_t *)in, inlen, (uint8_t*)out, outlen);
 }
 unsigned balz_bounds(unsigned inlen, unsigned flags) {
-    return (unsigned)(inlen * 1.1) + 16; // @todo: check src
+	return (unsigned)(inlen * 1.1) + 16; // @todo: check src
 }
 
 #endif // BALZ_C

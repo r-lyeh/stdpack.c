@@ -32,11 +32,11 @@ int file_compare(FILE *in1, FILE *in2) {
 
 int main(int argc, const char **argv) {
     // compression settings: high-end, middle, low-end
-    unsigned list_extreme[]  = { CRSH|8, LZMA|8, BALZ|1 };                         // enwik8 baseline: 30..60s
-    unsigned list_extra[]    = { ULZ|9, LZ4X|15, CRSH|6, DEFL|9, LZMA|7, BALZ|0 }; // enwik8 baseline: >12s
-    unsigned list_default[]  = { ULZ|5, LZ4X|14, CRSH|4, DEFL|6,  };               // enwik8 baseline: >6s
-    unsigned list_fast[]     = { ULZ|4, LZ4X|14, CRSH|0, DEFL|2,  };               // enwik8 baseline: >2s
-    unsigned list_fastest[]  = { ULZ|0, LZ4X|0, PPP, LZP1, LZW3  };                // enwik8 baseline: <1s
+    unsigned list_extreme[]  = { CRSH|8, LZMA|8, BALZ|1, BCM|6 };                         // enwik8 baseline: 30..60s
+    unsigned list_extra[]    = { ULZ|9, LZ4X|15, CRSH|6, DEFL|9, LZMA|7, BALZ|0, BCM|1 }; // enwik8 baseline: >12s
+    unsigned list_default[]  = { ULZ|5, LZ4X|14, CRSH|4, DEFL|6, };                       // enwik8 baseline: >6s
+    unsigned list_fast[]     = { ULZ|4, LZ4X|14, CRSH|0, DEFL|2, };                       // enwik8 baseline: >2s
+    unsigned list_fastest[]  = { ULZ|0, LZ4X|0, PPP, LZP1, LZW3  };                       // enwik8 baseline: <1s
 
     if( argc <= 1 ) {
         // @todo: document everything plus --ulz,--lzma,--crsh, etc
@@ -60,10 +60,10 @@ int main(int argc, const char **argv) {
 
     // choose compressor list
     for( int j = 1; j < argc; ++j ) {
-        /**/ if( 0 == strcmp(argv[j], "--extreme") ) my_list = list_extreme, my_count = sizeof(list_extreme)/sizeof(list_extreme[0]);
-        else if( 0 == strcmp(argv[j], "--extra") )   my_list = list_extra, my_count = sizeof(list_extra)/sizeof(list_extra[0]);
-        else if( 0 == strcmp(argv[j], "--fast") )    my_list = list_fast, my_count = sizeof(list_fast)/sizeof(list_fast[0]);
-        else if( 0 == strcmp(argv[j], "--fastest") ) my_list = list_fastest, my_count = sizeof(list_fastest)/sizeof(list_fastest[0]);
+        /**/ if( 0 == strcmp(argv[j], "--extreme") )   my_list = list_extreme, my_count = sizeof(list_extreme)/sizeof(list_extreme[0]);
+        else if( 0 == strcmp(argv[j], "--extra") )     my_list = list_extra, my_count = sizeof(list_extra)/sizeof(list_extra[0]);
+        else if( 0 == strcmp(argv[j], "--fast") )      my_list = list_fast, my_count = sizeof(list_fast)/sizeof(list_fast[0]);
+        else if( 0 == strcmp(argv[j], "--fastest") )   my_list = list_fastest, my_count = sizeof(list_fastest)/sizeof(list_fastest[0]);
     }
 
     // override unique compressor

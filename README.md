@@ -22,34 +22,34 @@ By using these compressors you are not required to credit original authors neith
 
 ```
 C:\prj\stdarc>demo.exe --benchmark --0 \prj\enwik8 | sort
-Y 100000000 ->    63186892 defl.0 63.19% c:2.743s d:0.661s \prj\enwik8
-Y 100000000 ->    58555379  ppp.0 58.56% c:1.133s d:0.632s \prj\enwik8
-Y 100000000 ->    56013653 lzp1.0 56.01% c:1.257s d:0.825s \prj\enwik8
-Y 100000000 ->    52650826 lz4x.0 52.65% c:1.119s d:0.156s \prj\enwik8
-Y 100000000 ->    51923214  ulz.0 51.92% c:0.942s d:0.146s \prj\enwik8
-Y 100000000 ->    49061220 lzss.0 49.06% c:22.08s d:0.549s \prj\enwik8
-Y 100000000 ->    47874203 lzw3.0 47.87% c:1.721s d:0.462s \prj\enwik8
-Y 100000000 ->    47620392 crsh.0 47.62% c:2.910s d:0.729s \prj\enwik8
-Y 100000000 ->    39963843 lzma.0 39.96% c:22.02s d:4.384s \prj\enwik8
-Y 100000000 ->    30056092 balz.0 30.06% c:16.46s d:8.218s \prj\enwik8
-Y 100000000 ->    27700929  bcm.0 27.70% c:22.01s d:18.96s \prj\enwik8
-130.12s
+Y 100000000 ->    63186893 defl.0 63.19% c:1.670s d:0.418s \prj\enwik8
+Y 100000000 ->    58555380  ppp.0 58.56% c:0.684s d:0.393s \prj\enwik8
+Y 100000000 ->    56013654 lzp1.0 56.01% c:0.778s d:0.508s \prj\enwik8
+Y 100000000 ->    52650827 lz4x.0 52.65% c:0.688s d:0.097s \prj\enwik8
+Y 100000000 ->    51923215  ulz.0 51.92% c:0.602s d:0.089s \prj\enwik8
+Y 100000000 ->    49061221 lzss.0 49.06% c:13.96s d:0.344s \prj\enwik8
+Y 100000000 ->    47874204 lzw3.0 47.87% c:1.069s d:0.286s \prj\enwik8
+Y 100000000 ->    47620393 crsh.0 47.62% c:1.797s d:0.449s \prj\enwik8
+Y 100000000 ->    39963844 lzma.0 39.96% c:13.53s d:2.680s \prj\enwik8
+Y 100000000 ->    30056093 balz.0 30.06% c:10.19s d:5.109s \prj\enwik8
+Y 100000000 ->    27700930  bcm.0 27.70% c:13.59s d:11.71s \prj\enwik8
+80.64s
 ```
 
 ```
 C:\prj\stdarc>demo.exe --benchmark --9 \prj\enwik8 | sort
-Y 100000000 ->    58555379  ppp.9 58.56% c:1.139s d:0.630s \prj\enwik8
-Y 100000000 ->    56013653 lzp1.9 56.01% c:1.262s d:0.823s \prj\enwik8
-Y 100000000 ->    49061220 lzss.9 49.06% c:21.94s d:0.541s \prj\enwik8
-Y 100000000 ->    47874203 lzw3.9 47.87% c:1.726s d:0.465s \prj\enwik8
-Y 100000000 ->    46021463 lz4x.9 46.02% c:2.104s d:0.153s \prj\enwik8
-Y 100000000 ->    40253294  ulz.9 40.25% c:19.79s d:0.158s \prj\enwik8
-Y 100000000 ->    36460095 defl.9 36.46% c:10.37s d:0.627s \prj\enwik8
-Y 100000000 ->    32038270 crsh.9 32.04% c:157.1s d:0.559s \prj\enwik8
-Y 100000000 ->    28232819 balz.9 28.23% c:52.05s d:7.808s \prj\enwik8
-Y 100000000 ->    25801720 lzma.9 25.80% c:147.2s d:2.265s \prj\enwik8
-Y 100000000 ->    20789659  bcm.9 20.79% c:31.00s d:27.71s \prj\enwik8
-487.38s
+Y 100000000 ->    58555380  ppp.9 58.56% c:0.688s d:0.394s \prj\enwik8
+Y 100000000 ->    56013654 lzp1.9 56.01% c:0.769s d:0.507s \prj\enwik8
+Y 100000000 ->    49061221 lzss.9 49.06% c:13.58s d:0.334s \prj\enwik8
+Y 100000000 ->    47874204 lzw3.9 47.87% c:1.064s d:0.286s \prj\enwik8
+Y 100000000 ->    46021464 lz4x.9 46.02% c:1.293s d:0.095s \prj\enwik8
+Y 100000000 ->    40253295  ulz.9 40.25% c:11.78s d:0.097s \prj\enwik8
+Y 100000000 ->    36460096 defl.9 36.46% c:6.372s d:0.387s \prj\enwik8
+Y 100000000 ->    32038271 crsh.9 32.04% c:107.9s d:0.343s \prj\enwik8
+Y 100000000 ->    28232820 balz.9 28.23% c:32.63s d:4.855s \prj\enwik8
+Y 100000000 ->    25801721 lzma.9 25.80% c:93.58s d:1.413s \prj\enwik8
+Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
+315.97s
 ```
 
 # Project goals

@@ -1,6 +1,6 @@
 # stdarc.c
 
-This is a collection of public domain compressors from different authors. Sources have been minimally refurbished where due and/or backported from C++ to plain C. Most modifications were adding a standarized api convention and converting into single-header, converting from file to in-memory based, also added re-entrancy and thread-safety fixes, portability improvements, etc.
+This is [a collection of public domain compressors](src) from different authors. Sources have been minimally refurbished where due and/or backported from C++ to plain C. Most modifications were adding a standarized api convention and converting into single-header, converting from file to in-memory based, also added re-entrancy and thread-safety fixes, portability improvements, etc.
 
 At this point, you do not likely want to use these compressors in serious projects. First-citizen compressors like Snappy, LZ4/LZ4HC, ZSTD, ZLIB, BZIP2 or LZMA SDK are generally better bets: way more faster, mature, portable and battle-tested than the snippets found here. Still, you are welcome to use these snippets if your motivations are similar to mine: to have less headaches by embedding 3rd party software with no clauses, by preferring header-only files, by not hand-crafting makefiles, by avoid dealing with dynamic libraries, and by inspecting and debugging small codebases in general.
 

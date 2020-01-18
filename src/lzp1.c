@@ -67,7 +67,7 @@ static int lzp1_encode_(const uint8_t *raw,int rawLen,uint8_t * comp,int compLen
 
     // seed four
     *cp++ = *rp++; *cp++ = *rp++; *cp++ = *rp++; *cp++ = *rp++;
-    
+
     control = 0; controlp = cp++; controlb = 8;
 
 /** the control-byte entry macro **/
@@ -107,7 +107,7 @@ static int lzp1_encode_(const uint8_t *raw,int rawLen,uint8_t * comp,int compLen
                 ENC_SHIFT_CONTROL(0);
             } else {
                 mp++; rp++;
-                ENC_SHIFT_CONTROL(1);       
+                ENC_SHIFT_CONTROL(1);
 
                 if ( *mp == *rp ) { mp++; rp++;
                     if ( *mp == *rp ) { mp++; rp++;

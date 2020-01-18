@@ -4,7 +4,7 @@
 // @build: cl demo.c /O2 /MT /DNDEBUG /link setargv.obj
 
 #define STDARC_C
-#include "arc.c"
+#include "stdarc.c"
 
 // util
 #ifdef _MSC_VER
@@ -55,7 +55,7 @@ int main(int argc, const char **argv) {
     unsigned list_default[]  = { ULZ|5, LZ4X|14, CRSH|4, DEFL|6, };                       // enwik8 baseline: >6s
     unsigned list_fast[]     = { ULZ|4, LZ4X|14, CRSH|0, DEFL|2, };                       // enwik8 baseline: >2s
     unsigned list_fastest[]  = { ULZ|0, LZ4X|0, PPP, LZP1, LZW3  };                       // enwik8 baseline: <1s
-    unsigned list_all[]      = { PPP,ULZ,LZ4X,CRSH,DEFL,LZP1,LZMA,BALZ,LZW3,LZSS,BCM };
+    unsigned list_all[]      = { ULZ,PPP,LZ4X,LZP1,LZW3,DEFL,CRSH,LZSS,BALZ,BCM,LZMA };
 
     if( argc <= 1 ) {
         // @todo: document everything plus --ulz,--lzma,--crsh, etc
@@ -136,7 +136,7 @@ int main(int argc, const char **argv) {
 
                     memset(dupe, 0, inlen);
                     benchmark(dectime) {
-                        duplen = mem_decode(out, outlen, dupe, inlen, flags);
+                        duplen = mem_decode(out, outlen, dupe, inlen);
                     }
                     fprintf(stdout, "d:%.*fs %s\r%c\n",
                         dectime > 99 ? 1 : dectime > 9 ? 2 : 3, dectime,
@@ -165,7 +165,7 @@ int main(int argc, const char **argv) {
                 unsigned x, y;
                 double time;
                 benchmark(time) {
-                    x = file_encode_multi(in, out, stderr, my_count, my_list);
+                    x = file_encode(in, out, stderr, my_count, my_list);
                     encbytes += x;
                     errors += !x;
                     files += !!x;
@@ -180,7 +180,7 @@ int main(int argc, const char **argv) {
                 benchmark(time) {
                     FILE *tmp = tmpfile();
                     fseek(out, 0L, SEEK_SET);
-                    y = file_decode_multi(out, tmp, stderr);
+                    y = file_decode(out, tmp, stderr);
                     decbytes += y;
                     errors += !y;
                     fseek(in, 0L, SEEK_SET);
@@ -207,4 +207,3 @@ int main(int argc, const char **argv) {
             decbuf, files, "YN"[!!errors]);
     }
 }
-

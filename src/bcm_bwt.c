@@ -1,5 +1,9 @@
-#ifdef BCM_C
-
+#ifndef BCM_C
+// do nothing
+#elif defined BCM_NO_ENCODER
+// dummy
+int bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n) { return -1; }
+#else
 /*
  * divsufsort.h for libdivsufsort-lite
  * Copyright (c) 2003-2008 Yuta Mori All Rights Reserved.
@@ -1847,4 +1851,4 @@ bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
   return pidx;
 }
 
-#endif
+#endif // BCM_C

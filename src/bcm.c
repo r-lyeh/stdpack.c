@@ -20,12 +20,6 @@ unsigned bcm_decode(const void *in, unsigned inlen, const void *out, unsigned ou
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef BCM_NO_ENCODER
-int bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n) { return -1; }
-#else
-#include "bcm_bwt.c" // libdivsufsort-lite (MIT licensed)
-#endif
-
 #if INTPTR_MAX >= INT64_MAX
 #define BCM_64BITS 1
 #else

@@ -1,87 +1,5 @@
-// stdarc.c
-// - rlyeh, public domain
-//
-// current file format:
-//   header : [1<<block_size:8][1<<excess:8]
-//   chunk  : [len:32] [fmt:4|lvl:4] [data:X]
-//
-// @todo: new format
-//   header : [1<<block_size:8][1<<excess:8]
-//   chunk  : [len:32][fmt|lvl:8][data:X][fmt|lvl:8][crc:32]
-//
-// @todo: endianness
-// @todo: 0(store),1..(6)..9,10..15(uber)
-// @todo: expose new/del ctx (workmem)
-// @todo: compressed file seeking
-
-#ifndef STDARC_H
-#define STDARC_H
-#define STDARC_VERSION "v1.0.0"
-
-#include <stdio.h>
-
-// compressor type [0..15]: high nibble
-// compression level/flags [0..15]: low hibble
-// compressor_type << 4 + compression_level = 1 byte
-
-enum {
-    RAW  = 0,
-    PPP  = (1<<4),
-    ULZ  = (2<<4),
-    LZ4X = (3<<4),
-    CRSH = (4<<4),
-    DEFL = (5<<4),
-    LZP1 = (6<<4),
-    LZMA = (7<<4),
-    BALZ = (8<<4),
-    LZW3 = (9<<4),
-    LZSS = (10<<4),
-    BCM  = (11<<4),
-    NUM_COMPRESSORS = 13
-};
-
-// single de/encoder
-unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor);
-unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor);
-unsigned mem_bounds(unsigned inlen, unsigned compressor);
-
-// single de/encoder
-unsigned file_encode(FILE* in, FILE* out, unsigned compressor);
-unsigned file_decode(FILE* in, FILE* out);
-
-// multi de/encoder
-unsigned file_encode_multi(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned *clist);
-unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile);
-
-#endif
-
 #ifdef STDARC_C
 #pragma once
-
-#define RAW_C
-#include "raw.c"
-#define PPP_C
-#include "ppp.c"
-#define ULZ_C
-#include "ulz.c"
-#define LZ4X_C
-#include "lz4x.c"
-#define CRUSH_C
-#include "crush.c"
-#define DEFLATE_C
-#include "deflate.c"
-#define LZP1_C
-#include "lzp1.c"
-#define LZMA_C
-#include "lzma.c"
-#define BALZ_C
-#include "balz.c"
-#define LZRW3A_C
-#include "lzrw3a.c"
-#define LZSS_C
-#include "lzss.c"
-#define BCM_C
-#include "bcm.c"
 
 #include <stdio.h>
 #ifdef _MSC_VER
@@ -124,10 +42,13 @@ char *arc_nameof(unsigned flags) {
 }
 
 unsigned mem_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {
-    return list[(compressor >> 4) % NUM_COMPRESSORS].encode(in, inlen, out, outlen, compressor & 0x0F);
+    *(uint8_t*)out = compressor & 0xff;
+    unsigned ret = list[(compressor >> 4) % NUM_COMPRESSORS].encode(in, inlen, (uint8_t*)out+1, outlen-1, compressor & 0x0F);
+    return ret ? ret+1 : 0;
 }
-unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned compressor) {
-    return list[(compressor >> 4) % NUM_COMPRESSORS].decode(in, inlen, out, outlen);
+unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
+    unsigned compressor = *(uint8_t*)in;
+    return list[(compressor >> 4) % NUM_COMPRESSORS].decode((uint8_t*)in+1, inlen-1, out, outlen);
 }
 unsigned mem_bounds(unsigned inlen, unsigned compressor) {
     return list[(compressor >> 4) % NUM_COMPRESSORS].bounds(inlen, compressor & 0x0F);
@@ -144,7 +65,7 @@ static uint8_t STDARC_FILE_BLOCK_EXCESS = 0; // 16<<BE = 16, 256, 4K, 64K (16 fo
 //    yy        : block excess [00..03] = 16<<X     = { 16, 256, 4K, 64K }
 //       zzzz   : block size   [00..15] = 2<<(X+13) = { 8K..256M }
 
-unsigned file_encode_multi(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned *clist) { // multi encoder
+unsigned file_encode(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned *clist) { // multi encoder
 #if 0
     // uint8_t MAGIC = 0x11 << 6 | ((STDARC_FILE_BLOCK_EXCESS&3) << 4) | ((STDARC_FILE_BLOCK_SIZE-12)&15);
     // EXCESS = 16ull << ((MAGIC >> 4) & 3);
@@ -244,7 +165,7 @@ unsigned file_encode_multi(FILE* in, FILE* out, FILE *logfile, unsigned cnum, un
 }
 
 
-unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile) { // multi decoder
+unsigned file_decode(FILE* in, FILE* out, FILE *logfile) { // multi decoder
     uint8_t block8; if( fread(&block8, 1,1, in ) < 1 ) return 0; 
     uint8_t excess8; if( fread(&excess8, 1,1, in ) < 1 ) return 0; 
     uint64_t BLOCK_SIZE = 1ull << block8;
@@ -297,13 +218,6 @@ unsigned file_decode_multi(FILE* in, FILE* out, FILE *logfile) { // multi decode
     free( outbuf );
     free( inbuf );
     return total;
-}
-
-unsigned file_encode(FILE* in, FILE* out, unsigned compressor) { // single encoder
-    return file_encode_multi(in, out, stderr, 1, &compressor);
-}
-unsigned file_decode(FILE* in, FILE* out) { // single decoder
-    return file_decode_multi(in, out, stderr);
 }
 
 #endif // STDARC_C

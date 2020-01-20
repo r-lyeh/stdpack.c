@@ -8,8 +8,8 @@
 // - #define BCM_NO_ENCODER if you want to exclude libdivsufsort from linkage.
 
 unsigned bcm_bounds(unsigned inlen, unsigned flags);
-unsigned bcm_encode(const void *in, unsigned inlen, const void *out, unsigned outlen, unsigned flags/*[0..(4)..9]*/);
-unsigned bcm_decode(const void *in, unsigned inlen, const void *out, unsigned outlen);
+unsigned bcm_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags/*[0..(4)..9]*/);
+unsigned bcm_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
 
 // ---
 

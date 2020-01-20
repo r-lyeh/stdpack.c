@@ -1,8 +1,8 @@
 int main() {
     include("begin.c");
         include("balz.c");
-        include("bcm.c");
         include("bcm_bwt.c");
+        include("bcm.c");
         include("crush.c");
         include("deflate.c");
         include("lz4x.c");

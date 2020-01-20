@@ -29,7 +29,7 @@ char *file_read(const char *fname) {
     if( !sz ) return 0;
     FILE *fp = fopen(fname, "rb");
     if(!fp) return 0;
-    char *data = malloc(sz+1); data[sz] = 0;
+    char *data = (char*)malloc(sz+1); data[sz] = 0;
     if( fread(data, 1,sz, fp) != sz ) { free(data); fclose(fp); return 0; }
     fclose(fp);
     return data;

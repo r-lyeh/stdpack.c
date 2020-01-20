@@ -40,6 +40,7 @@ unsigned lzp1_bounds(unsigned inlen, unsigned flags);
 
 #ifdef LZP1_C
 #pragma once
+#include <stdint.h>
 
 #define LZP1_BOUNDS(sz)    ((sz)+((sz)/8)+256)
 #define LZP1_EXCESS        256

@@ -1555,7 +1555,7 @@ tdefl_status tdefl_init(tdefl_compressor *d, void *out, size_t outlen, int flags
     tdefl_compressor zero = {0};
     *d = zero; // invalidated TDEFL_NONDETERMINISTIC_PARSING_FLAG option here
 
-    d->m_outbuffer[0] = d->m_outbuffer[1] = out; d->m_outbuffer[2] = d->m_outbuffer[0] + outlen;
+    d->m_outbuffer[0] = d->m_outbuffer[1] = (char*)out; d->m_outbuffer[2] = d->m_outbuffer[0] + outlen;
     d->m_flags = (mz_uint)(flags); d->m_max_probes[0] = 1 + ((flags & 0xFFF) + 2) / 3; d->m_greedy_parsing = (flags & TDEFL_GREEDY_PARSING_FLAG) != 0;
     d->m_max_probes[1] = 1 + (((flags & 0xFFF) >> 2) + 2) / 3;
 

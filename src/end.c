@@ -6,6 +6,11 @@
 #  define ftello64 _ftelli64
 #endif
 
+#include <stdlib.h>
+#ifndef REALLOC
+#define REALLOC realloc
+#endif
+
 #include <stdint.h>
 #include <time.h>
 
@@ -78,8 +83,10 @@ unsigned file_encode(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned
 #endif
 
     uint64_t total_in = 0, total_out = 0;
-    uint8_t* inbuf=malloc(BS_BYTES+BE_BYTES);
-    uint8_t* outbuf[2]={malloc(BS_BYTES*1.1+BE_BYTES), cnum>1 ? malloc(BS_BYTES*1.1+BE_BYTES) : 0};
+    uint8_t *inbuf, *outbuf[2];
+    inbuf=(uint8_t*)REALLOC(0, BS_BYTES+BE_BYTES);
+    outbuf[0]=(uint8_t*)REALLOC(0, BS_BYTES*1.1+BE_BYTES);
+    outbuf[1]=(uint8_t*)(cnum > 1 ? REALLOC(0, BS_BYTES*1.1+BE_BYTES) : 0);
 
     enum { BLOCK_PREVIEW_CHARS = 8 };
     char best_compressors_history[BLOCK_PREVIEW_CHARS+1] = {0}, best_compressors_index = BLOCK_PREVIEW_CHARS-1;
@@ -106,7 +113,7 @@ unsigned file_encode(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned
                     best = clist[i];
                     outlen[0] = outlen[1];
 
-                    void *swap = outbuf[0];
+                    uint8_t *swap = outbuf[0];
                     outbuf[0] = outbuf[1];
                     outbuf[1] = swap;
                 }
@@ -158,9 +165,9 @@ unsigned file_encode(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned
     fail: total_out = 0;
     next:
 
-    free( outbuf[1] );
-    free( outbuf[0] );
-    free( inbuf );
+    REALLOC( outbuf[1], 0 );
+    REALLOC( outbuf[0], 0 );
+    REALLOC( inbuf, 0 );
     return (unsigned)total_out;
 }
 
@@ -172,8 +179,8 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile) { // multi decoder
     uint64_t EXCESS = 1ull << excess8;
 
     unsigned total = 0, outlen;
-    uint8_t* inbuf=malloc(BLOCK_SIZE+EXCESS);
-    uint8_t* outbuf=malloc(BLOCK_SIZE+EXCESS);
+    uint8_t* inbuf=(uint8_t*)REALLOC(0, BLOCK_SIZE+EXCESS);
+    uint8_t* outbuf=(uint8_t*)REALLOC(0, BLOCK_SIZE+EXCESS);
 
     clock_t tm = {0};
     double dectime = 0;
@@ -215,8 +222,8 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile) { // multi decoder
     fail: total = 0;
     next:
 
-    free( outbuf );
-    free( inbuf );
+    REALLOC( outbuf, 0 );
+    REALLOC( inbuf, 0 );
     return total;
 }
 

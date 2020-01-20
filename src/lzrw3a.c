@@ -286,15 +286,15 @@ static void lzrw3a_decompress(uint8_t* p_wrk_mem, uint8_t* p_src_first, uint32_t
 }
 
 unsigned lzrw3a_encode(const void* in, unsigned inlen, void* out, unsigned outlen, unsigned flags) {
-    char workmem[MEM_REQ];
+    uint8_t workmem[MEM_REQ];
     size_t outlen_ = outlen;
-    lzrw3a_compress(workmem, (void*)in, inlen, out, &outlen_);
+    lzrw3a_compress(workmem, (uint8_t*)in, inlen, (uint8_t*)out, &outlen_);
     return (unsigned)outlen_;
 }
 unsigned lzrw3a_decode(const void* in, unsigned inlen, void* out, unsigned outlen) {
-    char workmem[MEM_REQ];
+    uint8_t workmem[MEM_REQ];
     size_t outlen_ = outlen;
-    lzrw3a_decompress(workmem, (void*)in, inlen, out, &outlen_);
+    lzrw3a_decompress(workmem, (uint8_t*)in, inlen, (uint8_t*)out, &outlen_);
     return (unsigned)outlen_;
 }
 unsigned lzrw3a_bounds(unsigned inlen, unsigned flags) { 

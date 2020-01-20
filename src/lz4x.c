@@ -466,8 +466,8 @@ int lz4x_decompress(const uint8_t *in, size_t inlen, uint8_t *out, size_t outlen
 
 unsigned lz4x_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags/*[1..15*/) {
     unsigned level = (unsigned)(flags > 15 ? 15 : flags < 1 ? 1 : flags);
-    if(level >= 15) return lz4x_compress_optimal(in, inlen, out, outlen);
-    return (unsigned)lz4x_compress((const uint8_t*)in, (size_t)inlen, (uint8_t*)out, (size_t)outlen, level);
+    if(level >= 15) return lz4x_compress_optimal((const uint8_t*)in, inlen, (uint8_t*)out, outlen);
+    return (unsigned)lz4x_compress((const uint8_t*)in, inlen, (uint8_t*)out, outlen, level);
 }
 unsigned lz4x_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {
     return (unsigned)lz4x_decompress((const uint8_t*)in, (size_t)inlen, (uint8_t*)out, (size_t)outlen);

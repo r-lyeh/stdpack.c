@@ -69,6 +69,8 @@ int mgetc(mfile *m) {
 }
 #endif
 
+int bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n);
+
 // Globals
 
 static __thread mfile* g_in;
@@ -205,7 +207,7 @@ typedef struct bcmEncode
 
 #define BCM_COUNTER_TEMPLATE(RATE) \
 typedef struct bcmCounter##RATE { uint16_t p; } bcmCounter##RATE; \
-bcmCounter##RATE##Ctor(bcmCounter##RATE *c) { c->p=1<<15; /* 0.5 */ } \
+void bcmCounter##RATE##Ctor(bcmCounter##RATE *c) { c->p=1<<15; /* 0.5 */ } \
 void bcmCounter##RATE##UpdateBit0(bcmCounter##RATE *c) { c->p-=c->p>>RATE; } \
 void bcmCounter##RATE##UpdateBit1(bcmCounter##RATE *c) { c->p+=(c->p^0xFFFF)>>RATE; }
 

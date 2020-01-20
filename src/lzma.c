@@ -3569,7 +3569,7 @@ unsigned lzma_encode(const void *in, unsigned inlen, void *out, unsigned outlen,
     uint8_t level = (uint8_t)(flags > 9 ? 9 : flags < 0 ? 0 : flags);
 
     int i = 0; memfd[i].begin = memfd[i].seek = memfd[i].end = (uint8_t*)in; memfd[i].end += inlen;
-    int o = 1; memfd[o].begin = memfd[o].seek = memfd[o].end = out;  memfd[o].end += outlen;
+    int o = 1; memfd[o].begin = memfd[o].seek = memfd[o].end = (uint8_t*)out;  memfd[o].end += outlen;
 
     writeblock(o, &level, 1); // write 1-byte header
 
@@ -3604,7 +3604,7 @@ unsigned lzma_decode(const void *in_, unsigned inlen, void *out, unsigned outlen
     ELzmaStatus status;
     LzmaDec_Init(&dec, &props.d);
     uint32_t srcLen = (uint32_t)inlen, destLen = (uint32_t)outlen;
-    bool ok = LzmaDec_DecodeToBuf(&dec, out, &destLen, in, &srcLen, LZMA_FINISH_ANY, &status);
+    bool ok = LzmaDec_DecodeToBuf(&dec, (uint8_t*)out, &destLen, in, &srcLen, LZMA_FINISH_ANY, &status);
     LzmaDec_Free(&dec);
 
     return (unsigned)(ok ? destLen : 0);

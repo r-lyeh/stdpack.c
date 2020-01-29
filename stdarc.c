@@ -314,11 +314,11 @@ void balz_init() {
     } \
 } while(0)
 
-inline uint32_t get_hash(int p) {
+static inline uint32_t get_hash(int p) {
     return (((*(uint32_t*)(&buf[p]))&0xffffff) *2654435769UL)&~BALZ_BUF_MASK; // Little-endian+unaligned
 }
 
-inline int get_pts(int len, int x) {
+static inline int get_pts(int len, int x) {
     return len>=BALZ_MIN_MATCH?(len<<BALZ_TAB_BITS)-x:((BALZ_MIN_MATCH-1)<<BALZ_TAB_BITS)-8;
 }
 
@@ -5471,8 +5471,8 @@ enum {
 };
 
 // io interface
-int readblock( const int fd, uint8_t *buf,int size );
-int writeblock( const int fd, const uint8_t *buf, int size );
+static int readblock( const int fd, uint8_t *buf,int size );
+static int writeblock( const int fd, const uint8_t *buf, int size );
 
 /* LzFind.h -- Match finder for LZ algorithms
 2009-04-22 : Igor Pavlov : Public domain */
@@ -7992,8 +7992,8 @@ typedef enum
 /* ELzmaStatus is used only as output value for function call */
 
 
-bool LzmaDec_Init(CLzmaDec *p, const uint8_t *raw_props);
-void LzmaDec_Free(CLzmaDec *p);
+static bool LzmaDec_Init(CLzmaDec *p, const uint8_t *raw_props);
+static void LzmaDec_Free(CLzmaDec *p);
 
 
 /* ---------- Buffer Interface ---------- */
@@ -8006,7 +8006,7 @@ finishMode:
     LZMA_FINISH_END - Stream must be finished after (*destLen).
 */
 
-bool LzmaDec_DecodeToBuf( CLzmaDec *p, uint8_t *dest, uint32_t *destLen,
+static bool LzmaDec_DecodeToBuf( CLzmaDec *p, uint8_t *dest, uint32_t *destLen,
                                                     const uint8_t *src, uint32_t *srcLen,
                                                     ELzmaFinishMode finishMode, ELzmaStatus *status );
 

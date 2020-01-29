@@ -79,8 +79,8 @@ enum {
 };
 
 // io interface
-int readblock( const int fd, uint8_t *buf,int size );
-int writeblock( const int fd, const uint8_t *buf, int size );
+static int readblock( const int fd, uint8_t *buf,int size );
+static int writeblock( const int fd, const uint8_t *buf, int size );
 
 /* LzFind.h -- Match finder for LZ algorithms
 2009-04-22 : Igor Pavlov : Public domain */
@@ -2600,8 +2600,8 @@ typedef enum
 /* ELzmaStatus is used only as output value for function call */
 
 
-bool LzmaDec_Init(CLzmaDec *p, const uint8_t *raw_props);
-void LzmaDec_Free(CLzmaDec *p);
+static bool LzmaDec_Init(CLzmaDec *p, const uint8_t *raw_props);
+static void LzmaDec_Free(CLzmaDec *p);
 
 
 /* ---------- Buffer Interface ---------- */
@@ -2614,7 +2614,7 @@ finishMode:
     LZMA_FINISH_END - Stream must be finished after (*destLen).
 */
 
-bool LzmaDec_DecodeToBuf( CLzmaDec *p, uint8_t *dest, uint32_t *destLen,
+static bool LzmaDec_DecodeToBuf( CLzmaDec *p, uint8_t *dest, uint32_t *destLen,
                                                     const uint8_t *src, uint32_t *srcLen,
                                                     ELzmaFinishMode finishMode, ELzmaStatus *status );
 

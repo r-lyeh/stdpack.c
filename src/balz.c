@@ -245,11 +245,11 @@ void balz_init() {
     } \
 } while(0)
 
-inline uint32_t get_hash(int p) {
+static inline uint32_t get_hash(int p) {
     return (((*(uint32_t*)(&buf[p]))&0xffffff) *2654435769UL)&~BALZ_BUF_MASK; // Little-endian+unaligned
 }
 
-inline int get_pts(int len, int x) {
+static inline int get_pts(int len, int x) {
     return len>=BALZ_MIN_MATCH?(len<<BALZ_TAB_BITS)-x:((BALZ_MIN_MATCH-1)<<BALZ_TAB_BITS)-8;
 }
 

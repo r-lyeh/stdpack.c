@@ -30,7 +30,7 @@ int include( const char *file ) {
 #ifdef _WIN32
     sprintf( cmd, "type %s && echo.", file );
 #else
-    sprintf( cmd, "cat %s && echo $'\n'", file );
+    sprintf( cmd, "cat %s && echo ", file );
 #endif
     system( cmd );
     return 0;

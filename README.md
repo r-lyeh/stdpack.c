@@ -21,7 +21,7 @@ By using these compressors you are not required to credit original authors neith
 # Some metrics (YMMV)
 
 ```
-C:\prj\stdarc>demo.exe --benchmark --0 \prj\enwik8 | sort
+C:\prj\stdarc>test.exe --benchmark --0 \prj\enwik8 | sort
 Y 100000000 ->    63186893 defl.0 63.19% c:1.670s d:0.418s \prj\enwik8
 Y 100000000 ->    58555380  ppp.0 58.56% c:0.684s d:0.393s \prj\enwik8
 Y 100000000 ->    56013654 lzp1.0 56.01% c:0.778s d:0.508s \prj\enwik8
@@ -37,7 +37,7 @@ Y 100000000 ->    27700930  bcm.0 27.70% c:13.59s d:11.71s \prj\enwik8
 ```
 
 ```
-C:\prj\stdarc>demo.exe --benchmark --9 \prj\enwik8 | sort
+C:\prj\stdarc>test.exe --benchmark --9 \prj\enwik8 | sort
 Y 100000000 ->    58555380  ppp.9 58.56% c:0.688s d:0.394s \prj\enwik8
 Y 100000000 ->    56013654 lzp1.9 56.01% c:0.769s d:0.507s \prj\enwik8
 Y 100000000 ->    49061221 lzss.9 49.06% c:13.58s d:0.334s \prj\enwik8

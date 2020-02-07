@@ -13,6 +13,7 @@ int main() {
         include("ppp.c");
         include("raw.c");
         include("ulz.c");
+        include("zip.c");
     include("end.c");
 }
 

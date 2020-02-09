@@ -66,4 +66,5 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile);
 #define LZSS_C
 #define BCM_C
 #define ZIP_C
+#define TAR_C
 #endif

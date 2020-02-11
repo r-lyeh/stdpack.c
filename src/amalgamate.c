@@ -15,6 +15,7 @@ int main() {
         include("ulz.c");
         include("zip.c");
         include("tar.c");
+        include("pak.c");
     include("end.c");
 }
 

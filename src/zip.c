@@ -9,9 +9,6 @@
 //@todo: +w) int zip_append(zip*, const char *entryname, const void *buf, unsigned buflen);
 //@todo: +w) int zip_append_mem(zip*, const char *entryname, const void *buf, unsigned buflen, unsigned compr_level);
 
-#define STDARC_C
-#include "stdarc.c"
-
 #ifndef ZIP_H
 #define ZIP_H
 #include <stdio.h>
@@ -36,7 +33,7 @@ zip* zip_open(const char *file, const char *mode /*r,w,a*/);
         unsigned zip_offset(zip*, unsigned index);
         void*    zip_extract(zip*, unsigned index); // must free() after use
         bool     zip_extract_file(zip*, unsigned index, FILE *out);
-        unsigned zip_extract_mem(zip*, unsigned index, void *out, unsigned outlen);
+        unsigned zip_extract_data(zip*, unsigned index, void *out, unsigned outlen);
 
 void zip_close(zip*);
 
@@ -385,7 +382,7 @@ unsigned zip_codec(zip *z, unsigned index) {
     return 0;
 }
 
-unsigned zip_extract_mem(zip* z, unsigned index, void *out, unsigned outlen) {
+unsigned zip_extract_data(zip* z, unsigned index, void *out, unsigned outlen) {
     if( z->in && index < z->count ) {
         JZGlobalFileHeader *header = &(z->entries[index].header);
         if( outlen <= header->uncompressedSize ) {
@@ -401,7 +398,7 @@ void *zip_extract(zip *z, unsigned index) { // must free()
     if( z->in && index < z->count ) {
         unsigned outlen = (unsigned)z->entries[index].header.uncompressedSize;
         void *out = (char*)REALLOC(0, outlen);
-        unsigned ret = zip_extract_mem(z, index, out, outlen);
+        unsigned ret = zip_extract_data(z, index, out, outlen);
         return ret ? out : (REALLOC(out, 0), out = 0);
     }
     return NULL;

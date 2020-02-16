@@ -62,7 +62,7 @@ void zip_close(zip*);
 #endif
 
 #ifndef ERR
-#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "\n"), fflush(stderr), (NUM)) // (NUM)
+#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
 #endif
 
 #pragma pack(push, 1)

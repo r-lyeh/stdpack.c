@@ -51,7 +51,7 @@ void pak_close(pak*);
 #endif
 
 #ifndef ERR
-#define ERR(rc, ...) (rc) // (fprintf(stderr, __VA_ARGS__), fprintf(stderr, "\n"), (rc))
+#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
 #endif
 
 #include <stdint.h>

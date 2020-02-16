@@ -37,7 +37,7 @@ void tar_close(tar *t);
 #endif
 
 #ifndef ERR
-#define ERR(rc, ...) (fprintf(stderr, __VA_ARGS__), fprintf(stderr, "\n"), (rc)) // (rc)
+#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
 #endif
 
 struct tar {

@@ -16,6 +16,7 @@ int main() {
         include("zip.c");
         include("tar.c");
         include("pak.c");
+        include("vfs.c");
     include("end.c");
 }
 

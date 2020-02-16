@@ -57,13 +57,14 @@ Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
 - Drop & use.
 - Small codebase.
 - Good enough performance.
+- De/compression for memory blocks, files and archives.
 - Public domain or unlicensed source code. No attribution required.
 
 # Todo
 - Test other environments. Currently VS2019+GCC+Clang only.
 - Add small compression filters (like E8E9).
-- Add small file archivers (~~pak, zip, tar,~~ and custom). ~~Maybe.~~
-- Add vfs and mounting support. Maybe.
+- ~~Add vfs and archive mounting support.~~
+- ~~Add small file archivers (pak, zip, tar).~~
 - Optimize LZSS. Could compressor be nearly as performant as LZJB with some effort?
 - Optimize BALZ. Could those in-mem bufferings be skipped?
 - Consider ZPAQ (large C++), ~~BCM~~, ~~yalz77~~. ~~LZJB maybe?~~

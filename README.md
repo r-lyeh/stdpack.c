@@ -60,6 +60,15 @@ Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
 - De/compression for memory blocks, files and archives.
 - Public domain or unlicensed source code. No attribution required.
 
+# Things you can actually do
+- De/compress files and memory blobs, with 10 compression algorithms, and different settings per algorithm.
+- De/compress large files, with different compressors per file chunk as specified.
+- De/compress zip archives, with different compressors and settings per file (not only deflate!).
+- ZIP archive reading/writing/appending.
+- PAK archive reading/writing/appending.
+- TAR archive reading.
+- VFS mounting/loading.
+
 # Todo
 - Test other environments. Currently VS2019+GCC+Clang only.
 - Add small compression filters (like E8E9).

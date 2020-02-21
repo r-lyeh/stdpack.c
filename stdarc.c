@@ -1,3 +1,4 @@
+#line 1 "begin.c (amalgamated)" 
 // stdarc.c
 // - rlyeh, public domain
 //
@@ -69,8 +70,10 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile);
 #define TAR_C
 #define PAK_C
 #define VFS_C
+#define DIR_C
 #endif
 
+#line 1 "balz.c (amalgamated)" 
 // balz.cpp is written and placed in the public domain by Ilya Muravyov
 // additional code by @r-lyeh (public domain)
 
@@ -564,6 +567,7 @@ int main() {
 #define main main__
 #endif // BALZ_DEMO
 
+#line 1 "bcm_bwt.c (amalgamated)" 
 #ifndef BCM_C
 // do nothing
 #elif defined BCM_NO_ENCODER
@@ -2419,6 +2423,7 @@ bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
 
 #endif // BCM_C
 
+#line 1 "bcm.c (amalgamated)" 
 // BCM 1.40 - A BWT-based file compressor
 // Written and placed in the public domain by Ilya Muravyov (UNLICENSE)
 // Additional code by @r-lyeh (UNLICENSE)
@@ -2896,6 +2901,7 @@ unsigned bcm_bounds(unsigned inlen, unsigned flags) {
 
 #endif // BCM_C
 
+#line 1 "crush.c (amalgamated)" 
 // crush.cpp
 // Written and placed in the public domain by Ilya Muravyov
 // Additional code by @r-lyeh (public domain). @todo: honor unused args inlen/outlen
@@ -3275,6 +3281,7 @@ int main() {
 #define main main__
 #endif // CRUSH_DEMO
 
+#line 1 "deflate.c (amalgamated)" 
 // miniz.c v1.15 r4 - public domain de/inflate. See "unlicense" statement at http://unlicense.org/
 // Rich Geldreich <richgel99@gmail.com>, last updated Oct. 13, 2013. Then stripped down by @r-lyeh.
 // Implements RFC 1950: http://www.ietf.org/rfc/rfc1950.txt and RFC 1951: http://www.ietf.org/rfc/rfc1951.txt
@@ -4896,6 +4903,7 @@ int main() {
 #define main main__
 #endif // DEFLATE_DEMO
 
+#line 1 "lz4x.c (amalgamated)" 
 // LZ4X - An optimized LZ4 compressor
 // Written and placed in the public domain by Ilya Muravyov (UNLICENSED)
 // MemBased by @r-lyeh. @todo: thread-safe
@@ -5394,6 +5402,7 @@ int main() {
 #define main main__
 #endif // LZ4X_DEMO
 
+#line 1 "lzma.c (amalgamated)" 
 // LzFind.c  -- Match finder for LZ algorithms 2009-04-22 : Igor Pavlov : Public domain
 // LzmaDec.c -- LZMA Decoder                   2009-09-20 : Igor Pavlov : Public domain
 // LzmaEnc.c -- LZMA Encoder                   2009-11-24 : Igor Pavlov : Public domain
@@ -9029,6 +9038,7 @@ int main() {
 #define main main__
 #endif // LZMA_DEMO
 
+#line 1 "lzp1.c (amalgamated)" 
 /***********
 
 Direct port of the old lzp1.c code to a single file header.
@@ -9375,6 +9385,7 @@ int main(int argc, char** argv) {
 
 
 
+#line 1 "lzrw3a.c (amalgamated)" 
 // Author : Ross Williams. Date : 15-Jul-1991. Release : 1.
 // Modified by @r-lyeh.
 //
@@ -9698,6 +9709,7 @@ int main() {
 #define main main__
 #endif // LZRW3A_DEMO
 
+#line 1 "lzss.c (amalgamated)" 
 /**************************************************************
     LZSS.C -- A Data Compression Program
 ***************************************************************
@@ -9964,6 +9976,7 @@ int main() {
 #define main main__
 #endif // LZSS_DEMO
 
+#line 1 "ppp.c (amalgamated)" 
 // pred.c -- Original code by Dave Rand's rendition of the predictor algorithm.
 // Updated by: Ian Donaldson, Carsten Bormann. Additional modifications by @r-lyeh.
 //
@@ -10087,6 +10100,7 @@ int main() {
 #define main main__
 #endif // PPP_DEMO
 
+#line 1 "raw.c (amalgamated)" 
 // raw memcpy de/encoder
 // - rlyeh, public domain
 
@@ -10115,6 +10129,7 @@ unsigned raw_bounds(unsigned bytes, unsigned flags) {
 
 #endif
 
+#line 1 "ulz.c (amalgamated)" 
 // ULZ.HPP - An ultra-fast LZ77 compressor
 // Original C++ code written and placed in the public domain by Ilya Muravyov (UNLICENSED)
 // Modified by r-lyeh (UNLICENSED)
@@ -10510,6 +10525,7 @@ int main() {
 #define main main__
 #endif // ULZ_DEMO
 
+#line 1 "zip.c (amalgamated)" 
 // zip un/packer. based on JUnzip library by Joonas Pihlajamaa (UNLICENSE)
 // - rlyeh, public domain.
 //
@@ -11113,6 +11129,7 @@ void zip_close(zip* z) {
 
 #endif // ZIP_C
 
+#line 1 "tar.c (amalgamated)" 
 // gnu tar and ustar extraction
 // - rlyeh, public domain.
 
@@ -11318,6 +11335,7 @@ int main( int argc, char **argv ) {
 #endif //TAR_DEMO
 #endif //TAR_C
 
+#line 1 "pak.c (amalgamated)" 
 // pak file reading/writing/appending.
 // - rlyeh, public domain.
 //
@@ -11665,6 +11683,7 @@ int main(int argc, char **argv) {
 #endif // PAK_DEMO
 #endif // PAK_C
 
+#line 1 "vfs.c (amalgamated)" 
 // virtual filesystem (registered directories and/or compressed zip archives).
 // - rlyeh, public domain.
 //
@@ -11751,6 +11770,192 @@ int main() {
 #endif // VFS_DEMO
 #endif // VFS_C
 
+#line 1 "dir.c (amalgamated)" 
+// directory iteration.
+// - rlyeh, public domain.
+
+#ifndef DIR_H
+#define DIR_H
+
+typedef struct dir dir;
+
+dir *dir_open(const char *filename, const char *mode); // recursive 'r'
+
+    int dir_find(dir*, const char *entryname); // returns entry number; or <0 if not found.
+    unsigned dir_count(dir*);
+        char*    dir_name(dir*, unsigned index);
+        unsigned dir_size(dir*, unsigned index);
+        unsigned dir_file(dir*, unsigned index); // dir_isfile? bool?
+        void*    dir_read(dir*, unsigned index); // must free() after use
+
+void dir_close(dir*);
+
+#endif
+
+// -----------------------------------------------------------------------------
+
+#ifdef DIR_C
+#pragma once
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+
+#ifdef _WIN32
+#include <winsock2.h>
+#else
+#include <dirent.h>
+#endif
+
+#ifndef STRDUP
+#define STRDUP strdup
+#endif
+
+#ifndef REALLOC
+#define REALLOC realloc
+#endif
+
+#ifndef ERR
+#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
+#endif
+
+typedef struct dir_entry {
+    char *filename;
+    size_t size;
+    size_t is_dir : 1;
+} dir_entry;
+
+struct dir {
+    dir_entry *entry;
+    unsigned count;
+};
+
+// ---
+
+#if !defined(S_ISDIR)
+#   define S_ISDIR(mode) (((mode) & S_IFMT) == S_IFDIR)
+#endif
+
+int dir_yield(dir *d, const char *pathfile, char *name, int namelen) {
+    int ok = 0;
+#ifdef _WIN32
+    WIN32_FIND_DATAA fdata = { 0 };
+    snprintf(name, namelen, "%s/*", pathfile);
+    for( HANDLE h = FindFirstFileA(name, &fdata ); h != INVALID_HANDLE_VALUE; (ok = FindClose( h ), h = INVALID_HANDLE_VALUE, 1)) {
+        for( int next = 1; next; next = FindNextFileA(h, &fdata) != 0 ) {
+            if( fdata.cFileName[0] == '.' ) continue;
+            int is_dir = (fdata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) > 0;
+            snprintf(name, namelen, "%s/%s%s", pathfile, fdata.cFileName, is_dir ? "/" : "");
+            struct stat st; if( !is_dir ) if(stat(name, &st) < 0) continue;
+            // add
+            dir_entry de = { STRDUP(name), is_dir ? 0 : st.st_size, is_dir };
+            d->entry = (dir_entry*)REALLOC(d->entry, ++d->count * sizeof(dir_entry));
+            d->entry[d->count-1] = de;
+        }
+    }
+#else
+    snprintf(name, namelen, "%s/", pathfile);
+    for( DIR *dir = opendir(name); dir; ok = (closedir(dir), dir = 0, 1)) {
+        for( struct dirent *ep; ep = readdir(dir); ) {
+            if( ep->d_name[0] == '.' ) continue;
+            snprintf(name, namelen, "%s/%s", pathfile, ep->d_name);
+            struct stat st; if( stat(name, &st) < 0 ) continue;
+            DIR *tmp = opendir(ep->d_name); int is_dir = !!tmp; if(tmp) closedir(tmp);
+            // if( is_dir && recursive ) { dir_yield(d,name); }
+            // add
+            dir_entry de = { STRDUP(name), is_dir ? 0 : st.st_size, is_dir };
+            d->entry = (dir_entry*)REALLOC(d->entry, ++d->count * sizeof(dir_entry));
+            d->entry[d->count-1] = de;
+        }
+    }
+#endif
+    return ok;
+}
+
+dir *dir_open(const char *pathfile, const char *mode) {
+    // if(mode[0] == 'R') return ERR(NULL, "(R) not supported for now");
+    dir *d = (dir*)REALLOC(0, sizeof(dir)), zero = {0}; *d = zero;
+
+    char *clean = STRDUP( pathfile );
+    for( int i = 0; clean[i]; ++i ) if(clean[i] == '\\') clean[i] = '/';
+    for( int len = strlen(clean); clean[--len] == '/'; ) clean[len] = '\0';
+
+    char buffer[2048];
+    dir_yield(d, clean, buffer, 2048);
+
+    REALLOC(clean, 0);
+    return d;
+}
+
+int dir_find(dir *d, const char *entryname) {
+    for( int i = d->count; --i >= 0; ) { // in case of several copies, grab most recent file (last coincidence)
+        if( 0 == strcmp(entryname, d->entry[i].filename)) return i;
+    }
+    return -1;
+}
+
+unsigned dir_count(dir *d) {
+    return d ? d->count : 0;
+}
+
+char* dir_name(dir *d, unsigned index) {
+    return d && index < d->count ? d->entry[index].filename : 0;
+}
+
+unsigned dir_size(dir *d, unsigned index) {
+    return d && index < d->count ? (unsigned)d->entry[index].size : 0;
+}
+
+unsigned dir_file(dir *d, unsigned index) {
+    return d && index < d->count ? (unsigned)!d->entry[index].is_dir : 0;
+}
+
+void *dir_read(dir *d, unsigned index) {
+    if( d && index < d->count ) {
+        void *data = 0;
+        for( FILE *fp = fopen(d->entry[index].filename, "rb"); fp; fclose(fp), fp = 0) {
+            size_t len = d->entry[index].size;
+            data = REALLOC(0, len);
+            if( data && fread(data, 1, len, fp) != len ) {
+                data = REALLOC(data, 0);
+            }
+        }
+        return data;
+    }
+    return 0;
+}
+
+void dir_close(dir *d) {
+    for( int i = 0; i < d->count; ++i) {
+        REALLOC(d->entry[i].filename, 0);
+    }
+    dir zero = {0};
+    *d = zero;
+    REALLOC(d, 0);
+}
+
+#ifdef DIR_DEMO
+int main( int argc, char **argv ) {
+    dir *d = dir_open(argc > 1 ? argv[1] : "./", "rb");
+    if( d ) {
+        for( int i = 0; i < dir_count(d); ++i ) {
+            if( dir_file(d,i) )
+            printf("%3d) %11d %s\n", i + 1, dir_size(d,i), dir_name(d,i));
+            else
+            printf("%3d) %11s %s\n", i + 1, "<dir>", dir_name(d,i));
+            char *data = dir_read(d,i);
+            if(argc > 2 && !strcmp(argv[2],dir_name(d,i))) printf("%.*s\n", dir_size(d,i), data);
+            free(data);
+        }
+        dir_close(d);
+    }
+}
+#define main main__
+#endif //DIR_DEMO
+#endif //DIR_C
+
+#line 1 "end.c (amalgamated)" 
 #ifdef STDARC_C
 #pragma once
 

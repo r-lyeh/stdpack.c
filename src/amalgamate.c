@@ -17,6 +17,7 @@ int main() {
         include("tar.c");
         include("pak.c");
         include("vfs.c");
+        include("dir.c");
     include("end.c");
 }
 
@@ -25,17 +26,17 @@ int main() {
 #include <sys/stat.h>
 
 int include( const char *file ) {
+#ifdef _WIN32
+    char cmd[256] = {0}, *cat = "type", *echoln = "echo.";
+#else
+    char cmd[256] = {0}, *cat = "cat", *echoln = "echo";
+#endif
     struct stat st = {0};
     if( stat(file, &st) < 0 ) {
-        fprintf(stderr, "Warning: Cannot open '%s'\n", file);
-        return -1;
+        snprintf( cmd, 256, "echo #include \"%s\" /* amalgamate: warning: cannot find file */ && %s", file, echoln );
+        return system( cmd ), fprintf(stderr, "Warning: cannot find '%s'\n", file), -1;
+    } else {
+        snprintf( cmd, 256, "echo #line 1 \"%s (amalgamated)\" && %s %s && %s", file, cat, file, echoln );
+        return system( cmd );
     }
-    char cmd[256] = {0};
-#ifdef _WIN32
-    sprintf( cmd, "type %s && echo.", file );
-#else
-    sprintf( cmd, "cat %s && echo ", file );
-#endif
-    system( cmd );
-    return 0;
 }

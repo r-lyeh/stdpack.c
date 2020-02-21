@@ -69,4 +69,5 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile);
 #define TAR_C
 #define PAK_C
 #define VFS_C
+#define DIR_C
 #endif

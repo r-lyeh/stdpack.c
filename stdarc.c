@@ -2456,7 +2456,9 @@ unsigned bcm_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
 #define BCM_REALLOC realloc
 #endif
 
-#if defined _MSC_VER && !defined __thread
+#  if defined _MSC_VER && !defined __thread
+#define __thread __declspec(thread)
+#elif defined __TINYC__ && !defined __thread
 #define __thread __declspec(thread)
 #endif
 
@@ -11011,11 +11013,11 @@ bool zip_append_file(zip *z, const char *entryname, FILE *in, unsigned compress_
     goto common;
 
 cant_compress:
-dont_compress:
+dont_compress:;
     e->header.compressedSize = ftell(in);
     e->header.compressionMethod = 0; // store method
 
-common:
+common:;
     // write local header
     uint32_t signature = 0x04034B50;
     fwrite(&signature, 1, sizeof(signature), z->out);
@@ -11802,8 +11804,10 @@ void dir_close(dir*);
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#ifdef _WIN32
-#include <winsock2.h>
+#  if defined _WIN32 && defined(__TINYC__)
+#include <windows.h>  // tcc
+#elif defined _WIN32
+#include <winsock2.h> // msc+gcc
 #else
 #include <dirent.h>
 #endif
@@ -11962,6 +11966,8 @@ int main( int argc, char **argv ) {
 #include <stdio.h>
 #ifdef _MSC_VER
 #  define ftello64 _ftelli64
+#elif !defined __GNUC__
+#  define ftello64 ftell
 #endif
 
 #include <stdlib.h>

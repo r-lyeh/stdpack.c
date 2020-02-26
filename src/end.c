@@ -4,6 +4,8 @@
 #include <stdio.h>
 #ifdef _MSC_VER
 #  define ftello64 _ftelli64
+#elif !defined __GNUC__
+#  define ftello64 ftell
 #endif
 
 #include <stdlib.h>

@@ -29,8 +29,10 @@ void dir_close(dir*);
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#ifdef _WIN32
-#include <winsock2.h>
+#  if defined _WIN32 && defined(__TINYC__)
+#include <windows.h>  // tcc
+#elif defined _WIN32
+#include <winsock2.h> // msc+gcc
 #else
 #include <dirent.h>
 #endif

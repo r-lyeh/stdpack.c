@@ -483,11 +483,11 @@ bool zip_append_file(zip *z, const char *entryname, FILE *in, unsigned compress_
     goto common;
 
 cant_compress:
-dont_compress:
+dont_compress:;
     e->header.compressedSize = ftell(in);
     e->header.compressionMethod = 0; // store method
 
-common:
+common:;
     // write local header
     uint32_t signature = 0x04034B50;
     fwrite(&signature, 1, sizeof(signature), z->out);

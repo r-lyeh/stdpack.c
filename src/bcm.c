@@ -30,7 +30,9 @@ unsigned bcm_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
 #define BCM_REALLOC realloc
 #endif
 
-#if defined _MSC_VER && !defined __thread
+#  if defined _MSC_VER && !defined __thread
+#define __thread __declspec(thread)
+#elif defined __TINYC__ && !defined __thread
 #define __thread __declspec(thread)
 #endif
 

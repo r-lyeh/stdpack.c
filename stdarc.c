@@ -12020,7 +12020,7 @@ unsigned mem_decode(const void *in, unsigned inlen, void *out, unsigned outlen) 
     return list[(compressor >> 4) % NUM_COMPRESSORS].decode((uint8_t*)in+1, inlen-1, out, outlen);
 }
 unsigned mem_bounds(unsigned inlen, unsigned compressor) {
-    return list[(compressor >> 4) % NUM_COMPRESSORS].bounds(inlen, compressor & 0x0F);
+    return 1 + list[(compressor >> 4) % NUM_COMPRESSORS].bounds(inlen, compressor & 0x0F);
 }
 
 // ---

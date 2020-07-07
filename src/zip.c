@@ -29,6 +29,7 @@ zip* zip_open(const char *file, const char *mode /*r,w,a*/);
         unsigned zip_size(zip*, unsigned index);
         unsigned zip_hash(zip*, unsigned index);
         bool     zip_file(zip*, unsigned index); // is_file? (dir if name ends with '/'; file otherwise)
+        bool     zip_test(zip*, unsigned index);
         unsigned zip_codec(zip*, unsigned index);
         unsigned zip_offset(zip*, unsigned index);
         void*    zip_extract(zip*, unsigned index); // must free() after use
@@ -57,12 +58,16 @@ void zip_close(zip*);
 #define STRDUP  strdup
 #endif
 
+#ifndef FPRINTF
+#define FPRINTF(...)  ((void)0) // printf for error logging
+#endif
+
 #ifndef PRINTF
-#define PRINTF  // printf //for debugging
+#define PRINTF(...)   ((void)0) // printf for debugging
 #endif
 
 #ifndef ERR
-#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
+#define ERR(NUM, ...) (FPRINTF(stderr, "" __VA_ARGS__), FPRINTF(stderr, "(%s:%d)\n", __FILE__, __LINE__), /*fflush(stderr),*/ (NUM)) // (NUM)
 #endif
 
 #pragma pack(push, 1)
@@ -234,7 +239,16 @@ int jzReadCentralDirectory(FILE *fp, JZEndRecord *endRecord, JZRecordCallback ca
         jzComment[fileHeader.fileCommentLength] = '\0'; // NULL terminate
 
         // seek to local file header, then skip file header + filename + extra field length
-        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader + fileHeader.fileNameLength, SEEK_SET)) {
+        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader - 2 - 2, SEEK_SET)) {
+            return ERR(JZ_ERRNO, "Cannot seek in file!");
+        }
+        if(fread(&fileHeader.fileNameLength, 1, 2, fp) < 2) {
+            return ERR(JZ_ERRNO, "Couldn't read local filename #%d!", i);
+        }
+        if(fread(&fileHeader.extraFieldLength, 1, 2, fp) < 2) {
+            return ERR(JZ_ERRNO, "Couldn't read local extrafield #%d!", i);
+        }
+        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader + fileHeader.fileNameLength + fileHeader.extraFieldLength, SEEK_SET)) {
             return ERR(JZ_ERRNO, "Cannot seek in file!");
         }
 
@@ -410,6 +424,13 @@ bool zip_extract_file(zip* z, unsigned index, FILE *out) {
     unsigned datalen = (unsigned)z->entries[index].header.uncompressedSize;
     bool ok = fwrite(data, 1, datalen, out) == datalen;
     REALLOC( data, 0 );
+    return ok;
+}
+
+bool zip_test(zip *z, unsigned index) {
+    void *ret = zip_extract(z, index);
+    bool ok = !!ret;
+    REALLOC(ret, 0);
     return ok;
 }
 

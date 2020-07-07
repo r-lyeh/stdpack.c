@@ -1,4 +1,4 @@
-#line 1 "begin.c (amalgamated)" 
+#line 1 "amalgamated begin.c" 
 // stdarc.c
 // - rlyeh, public domain
 //
@@ -73,7 +73,7 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile);
 #define DIR_C
 #endif
 
-#line 1 "balz.c (amalgamated)" 
+#line 1 "amalgamated balz.c" 
 // balz.cpp is written and placed in the public domain by Ilya Muravyov
 // additional code by @r-lyeh (public domain)
 
@@ -567,7 +567,7 @@ int main() {
 #define main main__
 #endif // BALZ_DEMO
 
-#line 1 "bcm_bwt.c (amalgamated)" 
+#line 1 "amalgamated bcm_bwt.c" 
 #ifndef BCM_C
 // do nothing
 #elif defined BCM_NO_ENCODER
@@ -2423,7 +2423,7 @@ bcm_divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
 
 #endif // BCM_C
 
-#line 1 "bcm.c (amalgamated)" 
+#line 1 "amalgamated bcm.c" 
 // BCM 1.40 - A BWT-based file compressor
 // Written and placed in the public domain by Ilya Muravyov (UNLICENSE)
 // Additional code by @r-lyeh (UNLICENSE)
@@ -2903,7 +2903,7 @@ unsigned bcm_bounds(unsigned inlen, unsigned flags) {
 
 #endif // BCM_C
 
-#line 1 "crush.c (amalgamated)" 
+#line 1 "amalgamated crush.c" 
 // crush.cpp
 // Written and placed in the public domain by Ilya Muravyov
 // Additional code by @r-lyeh (public domain). @todo: honor unused args inlen/outlen
@@ -3283,7 +3283,7 @@ int main() {
 #define main main__
 #endif // CRUSH_DEMO
 
-#line 1 "deflate.c (amalgamated)" 
+#line 1 "amalgamated deflate.c" 
 // miniz.c v1.15 r4 - public domain de/inflate. See "unlicense" statement at http://unlicense.org/
 // Rich Geldreich <richgel99@gmail.com>, last updated Oct. 13, 2013. Then stripped down by @r-lyeh.
 // Implements RFC 1950: http://www.ietf.org/rfc/rfc1950.txt and RFC 1951: http://www.ietf.org/rfc/rfc1951.txt
@@ -4905,7 +4905,7 @@ int main() {
 #define main main__
 #endif // DEFLATE_DEMO
 
-#line 1 "lz4x.c (amalgamated)" 
+#line 1 "amalgamated lz4x.c" 
 // LZ4X - An optimized LZ4 compressor
 // Written and placed in the public domain by Ilya Muravyov (UNLICENSED)
 // MemBased by @r-lyeh. @todo: thread-safe
@@ -5404,7 +5404,7 @@ int main() {
 #define main main__
 #endif // LZ4X_DEMO
 
-#line 1 "lzma.c (amalgamated)" 
+#line 1 "amalgamated lzma.c" 
 // LzFind.c  -- Match finder for LZ algorithms 2009-04-22 : Igor Pavlov : Public domain
 // LzmaDec.c -- LZMA Decoder                   2009-09-20 : Igor Pavlov : Public domain
 // LzmaEnc.c -- LZMA Encoder                   2009-11-24 : Igor Pavlov : Public domain
@@ -9040,7 +9040,7 @@ int main() {
 #define main main__
 #endif // LZMA_DEMO
 
-#line 1 "lzp1.c (amalgamated)" 
+#line 1 "amalgamated lzp1.c" 
 /***********
 
 Direct port of the old lzp1.c code to a single file header.
@@ -9387,7 +9387,7 @@ int main(int argc, char** argv) {
 
 
 
-#line 1 "lzrw3a.c (amalgamated)" 
+#line 1 "amalgamated lzrw3a.c" 
 // Author : Ross Williams. Date : 15-Jul-1991. Release : 1.
 // Modified by @r-lyeh.
 //
@@ -9711,7 +9711,7 @@ int main() {
 #define main main__
 #endif // LZRW3A_DEMO
 
-#line 1 "lzss.c (amalgamated)" 
+#line 1 "amalgamated lzss.c" 
 /**************************************************************
     LZSS.C -- A Data Compression Program
 ***************************************************************
@@ -9978,7 +9978,7 @@ int main() {
 #define main main__
 #endif // LZSS_DEMO
 
-#line 1 "ppp.c (amalgamated)" 
+#line 1 "amalgamated ppp.c" 
 // pred.c -- Original code by Dave Rand's rendition of the predictor algorithm.
 // Updated by: Ian Donaldson, Carsten Bormann. Additional modifications by @r-lyeh.
 //
@@ -10102,7 +10102,7 @@ int main() {
 #define main main__
 #endif // PPP_DEMO
 
-#line 1 "raw.c (amalgamated)" 
+#line 1 "amalgamated raw.c" 
 // raw memcpy de/encoder
 // - rlyeh, public domain
 
@@ -10131,7 +10131,7 @@ unsigned raw_bounds(unsigned bytes, unsigned flags) {
 
 #endif
 
-#line 1 "ulz.c (amalgamated)" 
+#line 1 "amalgamated ulz.c" 
 // ULZ.HPP - An ultra-fast LZ77 compressor
 // Original C++ code written and placed in the public domain by Ilya Muravyov (UNLICENSED)
 // Modified by r-lyeh (UNLICENSED)
@@ -10527,7 +10527,7 @@ int main() {
 #define main main__
 #endif // ULZ_DEMO
 
-#line 1 "zip.c (amalgamated)" 
+#line 1 "amalgamated zip.c" 
 // zip un/packer. based on JUnzip library by Joonas Pihlajamaa (UNLICENSE)
 // - rlyeh, public domain.
 //
@@ -10559,6 +10559,7 @@ zip* zip_open(const char *file, const char *mode /*r,w,a*/);
         unsigned zip_size(zip*, unsigned index);
         unsigned zip_hash(zip*, unsigned index);
         bool     zip_file(zip*, unsigned index); // is_file? (dir if name ends with '/'; file otherwise)
+        bool     zip_test(zip*, unsigned index);
         unsigned zip_codec(zip*, unsigned index);
         unsigned zip_offset(zip*, unsigned index);
         void*    zip_extract(zip*, unsigned index); // must free() after use
@@ -10587,12 +10588,16 @@ void zip_close(zip*);
 #define STRDUP  strdup
 #endif
 
+#ifndef FPRINTF
+#define FPRINTF(...)  ((void)0) // printf for error logging
+#endif
+
 #ifndef PRINTF
-#define PRINTF  // printf //for debugging
+#define PRINTF(...)   ((void)0) // printf for debugging
 #endif
 
 #ifndef ERR
-#define ERR(NUM, ...) (fprintf(stderr, "" __VA_ARGS__), fprintf(stderr, "(%s:%d)\n", __FILE__, __LINE__), fflush(stderr), (NUM)) // (NUM)
+#define ERR(NUM, ...) (FPRINTF(stderr, "" __VA_ARGS__), FPRINTF(stderr, "(%s:%d)\n", __FILE__, __LINE__), /*fflush(stderr),*/ (NUM)) // (NUM)
 #endif
 
 #pragma pack(push, 1)
@@ -10764,7 +10769,16 @@ int jzReadCentralDirectory(FILE *fp, JZEndRecord *endRecord, JZRecordCallback ca
         jzComment[fileHeader.fileCommentLength] = '\0'; // NULL terminate
 
         // seek to local file header, then skip file header + filename + extra field length
-        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader + fileHeader.fileNameLength, SEEK_SET)) {
+        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader - 2 - 2, SEEK_SET)) {
+            return ERR(JZ_ERRNO, "Cannot seek in file!");
+        }
+        if(fread(&fileHeader.fileNameLength, 1, 2, fp) < 2) {
+            return ERR(JZ_ERRNO, "Couldn't read local filename #%d!", i);
+        }
+        if(fread(&fileHeader.extraFieldLength, 1, 2, fp) < 2) {
+            return ERR(JZ_ERRNO, "Couldn't read local extrafield #%d!", i);
+        }
+        if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader + fileHeader.fileNameLength + fileHeader.extraFieldLength, SEEK_SET)) {
             return ERR(JZ_ERRNO, "Cannot seek in file!");
         }
 
@@ -10940,6 +10954,13 @@ bool zip_extract_file(zip* z, unsigned index, FILE *out) {
     unsigned datalen = (unsigned)z->entries[index].header.uncompressedSize;
     bool ok = fwrite(data, 1, datalen, out) == datalen;
     REALLOC( data, 0 );
+    return ok;
+}
+
+bool zip_test(zip *z, unsigned index) {
+    void *ret = zip_extract(z, index);
+    bool ok = !!ret;
+    REALLOC(ret, 0);
     return ok;
 }
 
@@ -11131,7 +11152,7 @@ void zip_close(zip* z) {
 
 #endif // ZIP_C
 
-#line 1 "tar.c (amalgamated)" 
+#line 1 "amalgamated tar.c" 
 // gnu tar and ustar extraction
 // - rlyeh, public domain.
 
@@ -11337,7 +11358,7 @@ int main( int argc, char **argv ) {
 #endif //TAR_DEMO
 #endif //TAR_C
 
-#line 1 "pak.c (amalgamated)" 
+#line 1 "amalgamated pak.c" 
 // pak file reading/writing/appending.
 // - rlyeh, public domain.
 //
@@ -11685,7 +11706,7 @@ int main(int argc, char **argv) {
 #endif // PAK_DEMO
 #endif // PAK_C
 
-#line 1 "vfs.c (amalgamated)" 
+#line 1 "amalgamated vfs.c" 
 // virtual filesystem (registered directories and/or compressed zip archives).
 // - rlyeh, public domain.
 //
@@ -11772,7 +11793,7 @@ int main() {
 #endif // VFS_DEMO
 #endif // VFS_C
 
-#line 1 "dir.c (amalgamated)" 
+#line 1 "amalgamated dir.c" 
 // directory iteration.
 // - rlyeh, public domain.
 
@@ -11959,7 +11980,7 @@ int main( int argc, char **argv ) {
 #endif //DIR_DEMO
 #endif //DIR_C
 
-#line 1 "end.c (amalgamated)" 
+#line 1 "amalgamated end.c" 
 #ifdef STDARC_C
 #pragma once
 

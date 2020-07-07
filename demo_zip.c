@@ -14,6 +14,8 @@ int main(int argc, char **argv) {
             zip_append_file(z, __FILE__, myfile, 6);
         }
         zip_close(z);
+    } else {
+        puts("cannot open file for appending");
     }
 
     // test contents of file
@@ -35,7 +37,7 @@ int main(int argc, char **argv) {
             if(data) free(data); 
         }
         zip_close(z);
+    } else {
+        puts("cannot open file for reading");
     }
-
-    puts("ok");
 }

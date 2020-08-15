@@ -36,7 +36,7 @@ int include( const char *file ) {
         snprintf( cmd, 256, "echo #include \"%s\" /* amalgamate: warning: cannot find file */ && %s", file, echoln );
         return system( cmd ), fprintf(stderr, "Warning: cannot find '%s'\n", file), -1;
     } else {
-        snprintf( cmd, 256, "echo #line 1 \"amalgamated %s\" && %s %s && %s", file, cat, file, echoln );
+        snprintf( cmd, 256, "echo #line 1 \"amalgamated_%s\" && %s %s && %s", file, cat, file, echoln ); // debug: amalgamated_->src/
         return system( cmd );
     }
 }

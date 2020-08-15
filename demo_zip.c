@@ -4,7 +4,7 @@
 #define STDARC_C
 #include "stdarc.c"
 
-int main(int argc, char **argv) {
+int main(int argc, const char **argv) {
     // append file to a zip. will create if does not exist
     puts("appending file to demo.zip ...");
     zip *z = zip_open("demo.zip", "a+b");
@@ -19,8 +19,9 @@ int main(int argc, char **argv) {
     }
 
     // test contents of file
-    puts("testing files in demo.zip ...");
-    z = zip_open("demo.zip", "rb");
+    const char *infile = argc > 1 ? argv[1] : "demo.zip";
+    printf("testing files in %s ...\n", infile);
+    z = zip_open(infile, "rb");
     if( z ) {
         for( unsigned i = 0 ; i < zip_count(z); ++i ) {
             printf("  %d) ", i+1);

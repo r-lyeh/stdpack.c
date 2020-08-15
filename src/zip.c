@@ -191,7 +191,7 @@ int jzReadCentralDirectory(FILE *fp, JZEndRecord *endRecord, JZRecordCallback ca
             return ERR(JZ_ERRNO, "Couldn't read file header #%d!", i);
         }
 
-        JZGlobalFileHeader *g = &fileHeader;
+        JZGlobalFileHeader *g = &fileHeader, copy = *g;
         PRINTF("\tsignature: %u %#x\n", g->signature, g->signature); // 0x02014B50
         PRINTF("\tversionMadeBy: %u %#x\n", g->versionMadeBy, g->versionMadeBy); // unsupported
         PRINTF("\tversionNeededToExtract: %u %#x\n", g->versionNeededToExtract, g->versionNeededToExtract); // unsupported
@@ -242,6 +242,7 @@ int jzReadCentralDirectory(FILE *fp, JZEndRecord *endRecord, JZRecordCallback ca
         if(fseek(fp, fileHeader.relativeOffsetOflocalHeader + sizeof_JZLocalFileHeader - 2 - 2, SEEK_SET)) {
             return ERR(JZ_ERRNO, "Cannot seek in file!");
         }
+
         if(fread(&fileHeader.fileNameLength, 1, 2, fp) < 2) {
             return ERR(JZ_ERRNO, "Couldn't read local filename #%d!", i);
         }
@@ -258,8 +259,8 @@ int jzReadCentralDirectory(FILE *fp, JZEndRecord *endRecord, JZRecordCallback ca
             break; // keep going while callback returns ok
 
         fseek(fp, offset, SEEK_SET); // return to position
-        fseek(fp, sizeof(JZGlobalFileHeader) + fileHeader.fileNameLength, SEEK_CUR); // skip entry
-        fseek(fp, fileHeader.extraFieldLength + fileHeader.fileCommentLength, SEEK_CUR); // skip entry
+        fseek(fp, sizeof(JZGlobalFileHeader) + copy.fileNameLength, SEEK_CUR); // skip entry
+        fseek(fp, copy.extraFieldLength + copy.fileCommentLength, SEEK_CUR); // skip entry
     }
 
     return JZ_OK;

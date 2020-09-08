@@ -1,10 +1,10 @@
-// stdarc.c compression test
+// stdpack.c compression test
 // - rlyeh, public domain
 //
 // @build: cl test.c /O2 /MT /DNDEBUG /link setargv.obj
 
-#define STDARC_C
-#include "stdarc.c"
+#define STDPACK_C
+#include "../stdpack.c"
 
 // util
 #ifdef _MSC_VER
@@ -60,7 +60,7 @@ int main(int argc, const char **argv) {
     if( argc <= 1 ) {
         // @todo: document everything plus --ulz,--lzma,--crsh, etc
 
-        printf("%s %s (built: %s %s)\n\n", argv[0], STDARC_VERSION, __DATE__, __TIME__);
+        printf("%s %s (built: %s %s)\n\n", argv[0], STDPACK_VERSION, __DATE__, __TIME__);
         printf("Usage:\n\t%s [options] files\n\n", argv[0]);
         printf("Options:\n");
         printf("\t--0..15\t\tapply compression level to selected algorithms (if possible)\n");

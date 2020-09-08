@@ -1,4 +1,4 @@
-// stdarc.c
+// stdpack.c
 // - rlyeh, public domain
 //
 // current file format:
@@ -14,9 +14,9 @@
 // @todo: expose new/del ctx (workmem)
 // @todo: compressed file seeking
 
-#ifndef STDARC_H
-#define STDARC_H
-#define STDARC_VERSION "v1.0.0"
+#ifndef STDPACK_H
+#define STDPACK_H
+#define STDPACK_VERSION "v1.0.0"
 
 #include <stdio.h>
 
@@ -51,7 +51,7 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile);
 
 #endif
 
-#ifdef STDARC_C
+#ifdef STDPACK_C
 #pragma once
 #define RAW_C
 #define PPP_C

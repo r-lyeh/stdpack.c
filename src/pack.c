@@ -1,4 +1,4 @@
-#ifdef STDARC_C
+#ifdef STDPACK_C
 #pragma once
 
 #include <stdio.h>
@@ -64,8 +64,8 @@ unsigned mem_bounds(unsigned inlen, unsigned compressor) {
 // ---
 // file options
 
-static uint8_t STDARC_FILE_BLOCK_SIZE =  23; // 2<<(BS+12) = { 8K..256M }
-static uint8_t STDARC_FILE_BLOCK_EXCESS = 0; // 16<<BE = 16, 256, 4K, 64K (16 for ulz, 256 for lpz1)
+static uint8_t STDPACK_FILE_BLOCK_SIZE =  23; // 2<<(BS+12) = { 8K..256M }
+static uint8_t STDPACK_FILE_BLOCK_EXCESS = 0; // 16<<BE = 16, 256, 4K, 64K (16 for ulz, 256 for lpz1)
 
 // xx yy zzzz   : 8 bits
 // xx           : reserved (default = 0x11)
@@ -74,14 +74,14 @@ static uint8_t STDARC_FILE_BLOCK_EXCESS = 0; // 16<<BE = 16, 256, 4K, 64K (16 fo
 
 unsigned file_encode(FILE* in, FILE* out, FILE *logfile, unsigned cnum, unsigned *clist) { // multi encoder
 #if 0
-    // uint8_t MAGIC = 0x11 << 6 | ((STDARC_FILE_BLOCK_EXCESS&3) << 4) | ((STDARC_FILE_BLOCK_SIZE-12)&15);
+    // uint8_t MAGIC = 0x11 << 6 | ((STDPACK_FILE_BLOCK_EXCESS&3) << 4) | ((STDPACK_FILE_BLOCK_SIZE-12)&15);
     // EXCESS = 16ull << ((MAGIC >> 4) & 3);
     // BLSIZE =  1ull << ((MAGIC & 15) + 13);
 #else
-    if( fwrite(&STDARC_FILE_BLOCK_SIZE, 1,1, out) < 1) return 0;
-    if( fwrite(&STDARC_FILE_BLOCK_EXCESS, 1,1, out) < 1) return 0;
-    uint64_t BS_BYTES = 1ull << STDARC_FILE_BLOCK_SIZE;
-    uint64_t BE_BYTES = 1ull << STDARC_FILE_BLOCK_EXCESS;
+    if( fwrite(&STDPACK_FILE_BLOCK_SIZE, 1,1, out) < 1) return 0;
+    if( fwrite(&STDPACK_FILE_BLOCK_EXCESS, 1,1, out) < 1) return 0;
+    uint64_t BS_BYTES = 1ull << STDPACK_FILE_BLOCK_SIZE;
+    uint64_t BE_BYTES = 1ull << STDPACK_FILE_BLOCK_EXCESS;
 #endif
 
     uint64_t total_in = 0, total_out = 0;
@@ -229,4 +229,4 @@ unsigned file_decode(FILE* in, FILE* out, FILE *logfile) { // multi decoder
     return total;
 }
 
-#endif // STDARC_C
+#endif // STDPACK_C

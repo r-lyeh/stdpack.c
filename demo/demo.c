@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define STDARC_C
-#include "stdarc.c"
+#define STDPACK_C
+#include "../stdpack.c"
 
 int main(int argc, char **argv) {
     const char *src = "Hello world! Hello world! Hello world! Hello world!";

@@ -1,10 +1,14 @@
-# stdarc.c
+# stdpack.c
 
 This is [a collection of public domain compressors](src) from different authors. Sources have been minimally refurbished where due and/or backported from C++ to plain C. Most modifications were adding a standarized api convention and converting into single-header, converting from file to in-memory based, also added re-entrancy and thread-safety fixes, portability improvements, etc.
 
 At this point, you do not likely want to use these compressors in serious projects. First-citizen compressors like Snappy, LZ4/LZ4HC, ZSTD, ZLIB, BZIP2 or LZMA SDK are generally better bets: way more faster, mature, portable and battle-tested than the snippets found here. Still, you are welcome to use these snippets if your motivations are similar to mine: to have less headaches by embedding 3rd party software with no clauses, by preferring header-only files, by not hand-crafting makefiles, by avoid dealing with dynamic libraries, and by inspecting and debugging small codebases in general.
 
 By using these compressors you are not required to credit original authors neither to display licensing terms in your final products, but I encourage you to acknowledge the original authors if possible, as they crafted with <3 these little gems over the years.
+
+# Archives (zip, tar, pak, ...)
+
+Please check https://github.com/r-lyeh/stdarc.c instead
 
 # About compression (tips)
 
@@ -21,7 +25,7 @@ By using these compressors you are not required to credit original authors neith
 # Some metrics (YMMV)
 
 ```
-C:\prj\stdarc>test.exe --benchmark --0 \prj\enwik8 | sort
+C:\prj\stdpack>test.exe --benchmark --0 \prj\enwik8 | sort
 Y 100000000 ->    63186893 defl.0 63.19% c:1.670s d:0.418s \prj\enwik8
 Y 100000000 ->    58555380  ppp.0 58.56% c:0.684s d:0.393s \prj\enwik8
 Y 100000000 ->    56013654 lzp1.0 56.01% c:0.778s d:0.508s \prj\enwik8
@@ -37,7 +41,7 @@ Y 100000000 ->    27700930  bcm.0 27.70% c:13.59s d:11.71s \prj\enwik8
 ```
 
 ```
-C:\prj\stdarc>test.exe --benchmark --9 \prj\enwik8 | sort
+C:\prj\stdpack>test.exe --benchmark --9 \prj\enwik8 | sort
 Y 100000000 ->    58555380  ppp.9 58.56% c:0.688s d:0.394s \prj\enwik8
 Y 100000000 ->    56013654 lzp1.9 56.01% c:0.769s d:0.507s \prj\enwik8
 Y 100000000 ->    49061221 lzss.9 49.06% c:13.58s d:0.334s \prj\enwik8
@@ -52,29 +56,21 @@ Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
 315.97s
 ```
 
+# Features
+- De/compress memory blobs, with different compression algorithms.
+- De/compress files, with different compressors algorithms.
+- De/compress files in chunks, with different compression algorithms per chunk.
+
 # Project goals
 - C.
 - Drop & use.
 - Small codebase.
 - Good enough performance.
-- De/compression for memory blocks, files and archives.
 - Public domain or unlicensed source code. No attribution required.
-
-# Things you can actually do
-- De/compress files and memory blobs, with 10 compression algorithms, and different settings per algorithm.
-- De/compress large files, with different compressors per file chunk as specified.
-- De/compress zip archives, with different compressors and settings per file (not only deflate!).
-- ZIP archive reading/writing/appending.
-- PAK archive reading/writing/appending.
-- TAR archive reading.
-- VFS mounting/loading.
-- DIR listing.
 
 # Todo
 - Test other environments. Currently VS2019+GCC+Clang only.
 - Add small compression filters (like E8E9).
-- ~~Add vfs and archive mounting support.~~
-- ~~Add small file archivers (pak, zip, tar).~~
 - Optimize LZSS. Could compressor be nearly as performant as LZJB with some effort?
 - Optimize BALZ. Could those in-mem bufferings be skipped?
 - Consider ZPAQ (large C++), ~~BCM~~, ~~yalz77~~. ~~LZJB maybe?~~
@@ -88,4 +84,3 @@ Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
 - Ross Williams: lzrw3a - http://ross.net/compression/lzrw3a.html
 - Haruhiko Okumura: lzss - https://oku.edu.mie-u.ac.jp/~okumura/compression/
 - Dave Rand: ppp - https://tools.ietf.org/html/rfc1978
-- Joonas Pihlajamaa: junzip - https://github.com/jokkebk/JUnzip/

@@ -1,6 +1,6 @@
-// miniz.c v1.15 r4 - public domain de/inflate. See "unlicense" statement at http://unlicense.org/
-// Rich Geldreich <richgel99@gmail.com>, last updated Oct. 13, 2013. Then stripped down by @r-lyeh.
-// Implements RFC 1950: http://www.ietf.org/rfc/rfc1950.txt and RFC 1951: http://www.ietf.org/rfc/rfc1951.txt
+// deflate.c (sdefl.h+sinfl.h) - public domain de/inflate. See "unlicense" statement at http://unlicense.org/
+// Micha Mettke, sdefl.h 1.00, sinfl.h 1.00 (Unlicense), glue code by r-lyeh (PD).
+// Implements RFC 1951: http://www.ietf.org/rfc/rfc1951.txt
 
 unsigned deflate_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags); // [0..(6)..9][10 (uber)]
 unsigned deflate_decode(const void *in, unsigned inlen, void *out, unsigned outlen);
@@ -29,101 +29,8 @@ as needed to keep the implementation as concise as possible.
 - Webassembly:
     - Deflate ~3.7 KB (~2.2KB compressed)
     - Inflate ~3.6 KB (~2.2KB compressed)
-
-## Usage:
-This file behaves differently depending on what symbols you define
-before including it.
-
-Header-File mode:
-If you do not define `SDEFL_IMPLEMENTATION` before including this file, it
-will operate in header only mode. In this mode it declares all used structs
-and the API of the library without including the implementation of the library.
-
-Implementation mode:
-If you define `SDEFL_IMPLEMENTATION` before including this file, it will
-compile the implementation . Make sure that you only include
-this file implementation in *one* C or C++ file to prevent collisions.
-
-### Benchmark
-
-| Compressor name         | Compression| Decompress.| Compr. size | Ratio |
-| ------------------------| -----------| -----------| ----------- | ----- |
-| sdefl 1.0 -0            |   127 MB/s |   233 MB/s |    40004116 | 39.88 |
-| sdefl 1.0 -1            |   111 MB/s |   259 MB/s |    38940674 | 38.82 |
-| sdefl 1.0 -5            |    45 MB/s |   275 MB/s |    36577183 | 36.46 |
-| sdefl 1.0 -7            |    38 MB/s |   276 MB/s |    36523781 | 36.41 |
-| zlib 1.2.11 -1          |    72 MB/s |   307 MB/s |    42298774 | 42.30 |
-| zlib 1.2.11 -6          |    24 MB/s |   313 MB/s |    36548921 | 36.55 |
-| zlib 1.2.11 -9          |    20 MB/s |   314 MB/s |    36475792 | 36.48 |
-| miniz 1.0 -1            |   122 MB/s |   208 MB/s |    48510028 | 48.51 |
-| miniz 1.0 -6            |    27 MB/s |   260 MB/s |    36513697 | 36.51 |
-| miniz 1.0 -9            |    23 MB/s |   261 MB/s |    36460101 | 36.46 |
-| libdeflate 1.3 -1       |   147 MB/s |   667 MB/s |    39597378 | 39.60 |
-| libdeflate 1.3 -6       |    69 MB/s |   689 MB/s |    36648318 | 36.65 |
-| libdeflate 1.3 -9       |    13 MB/s |   672 MB/s |    35197141 | 35.20 |
-| libdeflate 1.3 -12      |  8.13 MB/s |   670 MB/s |    35100568 | 35.10 |
-
-### Compression
-Results on the [Silesia compression corpus](http://sun.aei.polsl.pl/~sdeor/index.php?page=silesia):
-
-| File    |   Original | `sdefl 0`      | `sdefl 5`     | `sdefl 7` |
-| :------ | ---------: | -----------------: | ---------: | ----------: |
-| dickens | 10.192.446 |  4,260,187|  3,845,261|   3,833,657 |
-| mozilla | 51.220.480 | 20,774,706 | 19,607,009 |  19,565,867 |
-| mr      |  9.970.564 | 3,860,531 |  3,673,460 |   3,665,627 |
-| nci     | 33.553.445 | 4,030,283 |  3,094,526 |   3,006,075 |
-| ooffice |  6.152.192 | 3,320,063 |  3,186,373 |   3,183,815 |
-| osdb    | 10.085.684 | 3,919,646 |  3,649,510 |   3,649,477 |
-| reymont |  6.627.202 | 2,263,378 |  1,857,588 |   1,827,237 |
-| samba   | 21.606.400 | 6,121,797 |  5,462,670 |   5,450,762 |
-| sao     |  7.251.944 | 5,612,421 |  5,485,380 |   5,481,765 |
-| webster | 41.458.703 | 13,972,648 | 12,059,432 |  11,991,421 |
-| xml     |  5.345.280 | 886,620|    674,009 |     662,141 |
-| x-ray   |  8.474.240 | 6,304,655 |  6,244,779 |   6,244,779 |
-
-## License
-```
-------------------------------------------------------------------------------
-This software is available under 2 licenses -- choose whichever you prefer.
-------------------------------------------------------------------------------
-ALTERNATIVE A - MIT License
-Copyright (c) 2020 Micha Mettke
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-------------------------------------------------------------------------------
-ALTERNATIVE B - Public Domain (www.unlicense.org)
-This is free and unencumbered software released into the public domain.
-Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
-software, either in source code form or as a compiled binary, for any purpose,
-commercial or non-commercial, and by any means.
-In jurisdictions that recognize copyright laws, the author or authors of this
-software dedicate any and all copyright interest in the software to the public
-domain. We make this dedication for the benefit of the public at large and to
-the detriment of our heirs and successors. We intend this dedication to be an
-overt act of relinquishment in perpetuity of all present and future rights to
-this software under copyright law.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------
-```
 */
+
 #ifndef SDEFL_H_INCLUDED
 #define SDEFL_H_INCLUDED
 
@@ -710,117 +617,7 @@ sdefl_bound(int len) {
 }
 #endif /* SDEFL_IMPLEMENTATION */
 
-/*
-# Small Deflate
-`sdefl` is a small bare bone lossless compression library in ANSI C (ISO C90)
-which implements the Deflate (RFC 1951) compressed data format specification standard.
-It is mainly tuned to get as much speed and compression ratio from as little code
-as needed to keep the implementation as concise as possible.
 
-## Features
-- Portable single header and source file duo written in ANSI C (ISO C90)
-- Dual license with either MIT or public domain
-- Small implementation
-    - Deflate: 525 LoC
-    - Inflate: 320 LoC
-- Webassembly:
-    - Deflate ~3.7 KB (~2.2KB compressed)
-    - Inflate ~3.6 KB (~2.2KB compressed)
-
-## Usage:
-This file behaves differently depending on what symbols you define
-before including it.
-
-Header-File mode:
-If you do not define `SINFL_IMPLEMENTATION` before including this file, it
-will operate in header only mode. In this mode it declares all used structs
-and the API of the library without including the implementation of the library.
-
-Implementation mode:
-If you define `SINFL_IMPLEMENTATION` before including this file, it will
-compile the implementation. Make sure that you only include
-this file implementation in *one* C or C++ file to prevent collisions.
-
-### Benchmark
-
-| Compressor name         | Compression| Decompress.| Compr. size | Ratio |
-| ------------------------| -----------| -----------| ----------- | ----- |
-| sdefl 1.0 -0            |   127 MB/s |   233 MB/s |    40004116 | 39.88 |
-| sdefl 1.0 -1            |   111 MB/s |   259 MB/s |    38940674 | 38.82 |
-| sdefl 1.0 -5            |    45 MB/s |   275 MB/s |    36577183 | 36.46 |
-| sdefl 1.0 -7            |    38 MB/s |   276 MB/s |    36523781 | 36.41 |
-| zlib 1.2.11 -1          |    72 MB/s |   307 MB/s |    42298774 | 42.30 |
-| zlib 1.2.11 -6          |    24 MB/s |   313 MB/s |    36548921 | 36.55 |
-| zlib 1.2.11 -9          |    20 MB/s |   314 MB/s |    36475792 | 36.48 |
-| miniz 1.0 -1            |   122 MB/s |   208 MB/s |    48510028 | 48.51 |
-| miniz 1.0 -6            |    27 MB/s |   260 MB/s |    36513697 | 36.51 |
-| miniz 1.0 -9            |    23 MB/s |   261 MB/s |    36460101 | 36.46 |
-| libdeflate 1.3 -1       |   147 MB/s |   667 MB/s |    39597378 | 39.60 |
-| libdeflate 1.3 -6       |    69 MB/s |   689 MB/s |    36648318 | 36.65 |
-| libdeflate 1.3 -9       |    13 MB/s |   672 MB/s |    35197141 | 35.20 |
-| libdeflate 1.3 -12      |  8.13 MB/s |   670 MB/s |    35100568 | 35.10 |
-
-### Compression
-Results on the [Silesia compression corpus](http://sun.aei.polsl.pl/~sdeor/index.php?page=silesia):
-
-| File    |   Original | `sdefl 0`      | `sdefl 5`     | `sdefl 7` |
-| :------ | ---------: | -----------------: | ---------: | ----------: |
-| dickens | 10.192.446 |  4,260,187|  3,845,261|   3,833,657 |
-| mozilla | 51.220.480 | 20,774,706 | 19,607,009 |  19,565,867 |
-| mr      |  9.970.564 | 3,860,531 |  3,673,460 |   3,665,627 |
-| nci     | 33.553.445 | 4,030,283 |  3,094,526 |   3,006,075 |
-| ooffice |  6.152.192 | 3,320,063 |  3,186,373 |   3,183,815 |
-| osdb    | 10.085.684 | 3,919,646 |  3,649,510 |   3,649,477 |
-| reymont |  6.627.202 | 2,263,378 |  1,857,588 |   1,827,237 |
-| samba   | 21.606.400 | 6,121,797 |  5,462,670 |   5,450,762 |
-| sao     |  7.251.944 | 5,612,421 |  5,485,380 |   5,481,765 |
-| webster | 41.458.703 | 13,972,648 | 12,059,432 |  11,991,421 |
-| xml     |  5.345.280 | 886,620|    674,009 |     662,141 |
-| x-ray   |  8.474.240 | 6,304,655 |  6,244,779 |   6,244,779 |
-
-## License
-```
-------------------------------------------------------------------------------
-This software is available under 2 licenses -- choose whichever you prefer.
-------------------------------------------------------------------------------
-ALTERNATIVE A - MIT License
-Copyright (c) 2020 Micha Mettke
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-------------------------------------------------------------------------------
-ALTERNATIVE B - Public Domain (www.unlicense.org)
-This is free and unencumbered software released into the public domain.
-Anyone is free to copy, modify, publish, use, compile, sell, or distribute this
-software, either in source code form or as a compiled binary, for any purpose,
-commercial or non-commercial, and by any means.
-In jurisdictions that recognize copyright laws, the author or authors of this
-software dedicate any and all copyright interest in the software to the public
-domain. We make this dedication for the benefit of the public at large and to
-the detriment of our heirs and successors. We intend this dedication to be an
-overt act of relinquishment in perpetuity of all present and future rights to
-this software under copyright law.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-------------------------------------------------------------------------------
-```
-*/
 #ifndef SINFL_H_INCLUDED
 #define SINFL_H_INCLUDED
 
@@ -1177,9 +974,9 @@ zsinflate(void *out, const void *mem, int size) {
 // end of deflate.c
 
 unsigned deflate_encode(const void *in, unsigned inlen, void *out, unsigned outlen, unsigned flags) {
-    struct sdefl *s = (struct sdefl *)malloc(sizeof(struct sdefl)); //{0};
+    struct sdefl z = {0}, *s = &z; // *s = (struct sdefl *)malloc(sizeof(struct sdefl)); //{0}; static __declspec(thread) struct sdefl s;
     int rc = zsdeflate(s, (unsigned char *)out, (const unsigned char *)in, (int)inlen, flags > SDEFL_LVL_MAX ? SDEFL_LVL_MAX : flags);
-    free(s);
+    // free(s);
     return rc > 0 ? (unsigned)rc : 0;
 }
 unsigned deflate_decode(const void *in, unsigned inlen, void *out, unsigned outlen) {

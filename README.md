@@ -26,34 +26,34 @@ Please check https://github.com/r-lyeh/stdarc.c instead
 
 ```
 C:\prj\stdpack>test.exe --benchmark --0 \prj\enwik8 | sort
-Y 100000000 ->    63186893 defl.0 63.19% c:1.670s d:0.418s \prj\enwik8
-Y 100000000 ->    58555380  ppp.0 58.56% c:0.684s d:0.393s \prj\enwik8
-Y 100000000 ->    56013654 lzp1.0 56.01% c:0.778s d:0.508s \prj\enwik8
-Y 100000000 ->    52650827 lz4x.0 52.65% c:0.688s d:0.097s \prj\enwik8
-Y 100000000 ->    51923215  ulz.0 51.92% c:0.602s d:0.089s \prj\enwik8
-Y 100000000 ->    49061221 lzss.0 49.06% c:13.96s d:0.344s \prj\enwik8
-Y 100000000 ->    47874204 lzw3.0 47.87% c:1.069s d:0.286s \prj\enwik8
-Y 100000000 ->    47620393 crsh.0 47.62% c:1.797s d:0.449s \prj\enwik8
-Y 100000000 ->    39963844 lzma.0 39.96% c:13.53s d:2.680s \prj\enwik8
-Y 100000000 ->    30056093 balz.0 30.06% c:10.19s d:5.109s \prj\enwik8
-Y 100000000 ->    27700930  bcm.0 27.70% c:13.59s d:11.71s \prj\enwik8
-80.64s
+Y 100000000 ->    58555380  ppp.0 58.56% c:0.721s d:0.413s \prj\enwik8
+Y 100000000 ->    56013654 lzp1.0 56.01% c:0.821s d:0.537s \prj\enwik8
+Y 100000000 ->    52650827 lz4x.0 52.65% c:0.754s d:0.097s \prj\enwik8
+Y 100000000 ->    51923215  ulz.0 51.92% c:0.646s d:0.094s \prj\enwik8
+Y 100000000 ->    49061221 lzss.0 49.06% c:14.24s d:0.355s \prj\enwik8
+Y 100000000 ->    47874204 lzw3.0 47.87% c:1.144s d:0.315s \prj\enwik8
+Y 100000000 ->    47620393 crsh.0 47.62% c:1.948s d:0.468s \prj\enwik8
+Y 100000000 ->    39963844 lzma.0 39.96% c:14.14s d:2.788s \prj\enwik8
+Y 100000000 ->    39879472 defl.0 39.88% c:1.520s d:0.611s \prj\enwik8
+Y 100000000 ->    30056093 balz.0 30.06% c:10.80s d:5.403s \prj\enwik8
+Y 100000000 ->    27700930  bcm.0 27.70% c:14.15s d:12.36s \prj\enwik8
+84.35s
 ```
 
 ```
 C:\prj\stdpack>test.exe --benchmark --9 \prj\enwik8 | sort
-Y 100000000 ->    58555380  ppp.9 58.56% c:0.688s d:0.394s \prj\enwik8
-Y 100000000 ->    56013654 lzp1.9 56.01% c:0.769s d:0.507s \prj\enwik8
-Y 100000000 ->    49061221 lzss.9 49.06% c:13.58s d:0.334s \prj\enwik8
-Y 100000000 ->    47874204 lzw3.9 47.87% c:1.064s d:0.286s \prj\enwik8
-Y 100000000 ->    46021464 lz4x.9 46.02% c:1.293s d:0.095s \prj\enwik8
-Y 100000000 ->    40253295  ulz.9 40.25% c:11.78s d:0.097s \prj\enwik8
-Y 100000000 ->    36460096 defl.9 36.46% c:6.372s d:0.387s \prj\enwik8
-Y 100000000 ->    32038271 crsh.9 32.04% c:107.9s d:0.343s \prj\enwik8
-Y 100000000 ->    28232820 balz.9 28.23% c:32.63s d:4.855s \prj\enwik8
-Y 100000000 ->    25801721 lzma.9 25.80% c:93.58s d:1.413s \prj\enwik8
-Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
-315.97s
+Y 100000000 ->    58555380  ppp.9 58.56% c:0.733s d:0.419s \prj\enwik8
+Y 100000000 ->    56013654 lzp1.9 56.01% c:0.819s d:0.532s \prj\enwik8
+Y 100000000 ->    49061221 lzss.9 49.06% c:14.39s d:0.349s \prj\enwik8
+Y 100000000 ->    47874204 lzw3.9 47.87% c:1.112s d:0.306s \prj\enwik8
+Y 100000000 ->    46021464 lz4x.9 46.02% c:1.400s d:0.105s \prj\enwik8
+Y 100000000 ->    40253295  ulz.9 40.25% c:12.71s d:0.104s \prj\enwik8
+Y 100000000 ->    36407448 defl.9 36.41% c:4.359s d:0.565s \prj\enwik8
+Y 100000000 ->    32038271 crsh.9 32.04% c:116.9s d:0.381s \prj\enwik8
+Y 100000000 ->    28232820 balz.9 28.23% c:34.84s d:5.221s \prj\enwik8
+Y 100000000 ->    25801721 lzma.9 25.80% c:106.6s d:1.516s \prj\enwik8
+Y 100000000 ->    20789660  bcm.9 20.79% c:20.79s d:19.95s \prj\enwik8
+344.09s
 ```
 
 # Features
@@ -78,7 +78,7 @@ Y 100000000 ->    20789660  bcm.9 20.79% c:19.72s d:17.84s \prj\enwik8
 
 # Links
 - Ilya Muravyov: bcm, balz, crush, ulz, lz4x - https://github.com/encode84
-- Rich Geldreich: miniz - https://github.com/richgel999
+- Micha Mettke: sinfl, sdefl - https://github.com/vurtun/lib
 - Igor Pavlov: lzma - https://www.7-zip.org/
 - Charles Bloom: lzp1 - https://www.cbloom.com/src/index_lz.html
 - Ross Williams: lzrw3a - http://ross.net/compression/lzrw3a.html
